@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAYESA — Materiales de Construcción</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #b3282b;
+      --red-dark: #8f1f22;
+      --cream: #fdf5e6;
+      --charcoal: #1a1a1a;
+      --gray: #6b7280;
+      --light: #f9f7f4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+    /* ── NAV ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 24px rgba(0,0,0,0.08);
+    }
+
+    /* ── HERO ── */
+    .hero-img {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.6) 100%);
+    }
+
+    /* ── BUTTONS ── */
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-red:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(179,40,43,0.35);
+    }
+    .btn-red:active { transform: translateY(0); }
+
+    .btn-wa {
+      background: #25d366;
+      color: #fff;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-wa:hover {
+      background: #1ebe5d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+    }
+
+    /* ── CARDS ── */
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.13);
+    }
+    .product-card img {
+      transition: transform 0.5s;
+    }
+    .product-card:hover img {
+      transform: scale(1.06);
+    }
+
+    /* ── GALLERY ── */
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      display: flex; align-items: flex-end; padding: 1.25rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* ── DIVIDER ── */
+    .cat-divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 3rem 0 2rem;
+    }
+    .cat-divider span { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; white-space: nowrap; }
+    .cat-divider::before, .cat-divider::after {
+      content: ''; flex: 1; height: 1px; background: #e5e7eb;
+    }
+
+    /* ── FAQ ── */
+    .faq-item { border-bottom: 1px solid #e5e7eb; }
+    .faq-btn { width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; font-weight: 500; font-size: 1rem; background: none; border: none; cursor: pointer; }
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; }
+    .faq-body.open { max-height: 300px; padding-bottom: 1rem; }
+    .faq-icon { transition: transform 0.3s; font-size: 1.25rem; color: var(--red); }
+    .faq-btn.open .faq-icon { transform: rotate(45deg); }
+
+    /* ── WHATSAPP FLOAT ── */
+    #wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      width: 60px; height: 60px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.45);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: pulse-wa 2.5s infinite;
+    }
+    #wa-float:hover { transform: scale(1.12); box-shadow: 0 12px 32px rgba(37,211,102,0.55); }
+    @keyframes pulse-wa {
+      0%,100% { box-shadow: 0 8px 24px rgba(37,211,102,0.45); }
+      50% { box-shadow: 0 8px 40px rgba(37,211,102,0.7); }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── MOBILE NAV ── */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--red);
+      border: 1px solid var(--red); border-radius: 999px;
+      padding: 0.25rem 0.85rem; margin-bottom: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ NAVBAR ════════════════════════════ -->
+<nav id="navbar" class="px-6 md:px-12 py-5 flex items-center justify-between">
+  <a href="#" class="text-white text-2xl font-black tracking-widest" style="font-family:'Playfair Display',serif;" id="nav-logo">MAYESA</a>
+
+  <!-- Desktop links -->
+  <div class="hidden md:flex items-center gap-8">
+    <a href="#inicio"    class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Inicio</a>
+    <a href="#productos" class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Productos</a>
+    <a href="#proyectos" class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Proyectos</a>
+    <a href="#contacto"  class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Contacto</a>
+  </div>
+
+  <div class="hidden md:flex items-center gap-3">
+    <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20un%20producto" target="_blank"
+       class="btn-wa flex items-center gap-2 px-5 py-2.5 rounded-full text-sm">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="#productos" class="btn-red px-5 py-2.5 rounded-full text-sm">Ver productos</a>
+  </div>
+
+  <!-- Hamburger -->
+  <button id="hamburger" class="md:hidden text-white focus:outline-none">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-[99] flex-col items-center justify-center gap-8 text-center" style="background:rgba(26,26,26,0.97)">
+  <button id="close-menu" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
+  <a href="#inicio"    onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Inicio</a>
+  <a href="#productos" onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Productos</a>
+  <a href="#proyectos" onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Proyectos</a>
+  <a href="#contacto"  onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Contacto</a>
+  <a href="https://wa.me/527441234567" target="_blank" class="btn-wa px-8 py-3 rounded-full text-lg mt-4 inline-block">WhatsApp</a>
+</div>
+
+<!-- ════════════════════════════ HERO ════════════════════════════ -->
+<section id="inicio" class="relative h-screen min-h-[640px] flex items-center justify-center text-center">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="relative z-10 px-6 max-w-4xl mx-auto fade-up">
+    <div class="section-label mb-4" style="color:#fff;border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.1);">Guerrero, México</div>
+    <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+      TRANSFORMA<br/>TU ESPACIO
+    </h1>
+    <p class="text-white/85 text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed">
+      Azulejos, baños y regaderas de alta gama para proyectos que inspiran.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#productos" class="btn-red px-8 py-4 rounded-full text-sm uppercase tracking-widest">Ver Catálogo</a>
+      <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank"
+         class="btn-wa flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm uppercase tracking-widest">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Cotizar ahora
+      </a>
+    </div>
+  </div>
+  <!-- scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 flex flex-col items-center gap-1 animate-bounce">
+    <span class="text-xs tracking-widest uppercase">Scroll</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ════════════════════ VALUES STRIP ════════════════════ -->
+<section class="bg-white py-16 px-6">
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+    <div class="fade-up flex flex-col items-center gap-3">
+      <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background:#fdf0f0;">
+        <span class="material-symbols-outlined text-2xl" style="color:var(--red);">workspace_premium</span>
+      </div>
+      <h3 class="font-semibold text-lg" style="font-family:'Playfair Display',serif;">Alta calidad</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">Materiales seleccionados para garantizar durabilidad y elegancia.</p>
+    </div>
+    <div class="fade-up flex flex-col items-center gap-3" style="transition-delay:0.1s">
+      <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background:#fdf0f0;">
+        <span class="material-symbols-outlined text-2xl" style="color:var(--red);">architecture</span>
+      </div>
+      <h3 class="font-semibold text-lg" style="font-family:'Playfair Display',serif;">Diseños modernos</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">Tendencias actuales en arquitectura e interiorismo.</p>
+    </div>
+    <div class="fade-up flex flex-col items-center gap-3" style="transition-delay:0.2s">
+      <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background:#fdf0f0;">
+        <span class="material-symbols-outlined text-2xl" style="color:var(--red);">local_shipping</span>
+      </div>
+      <h3 class="font-semibold text-lg" style="font-family:'Playfair Display',serif;">Entrega confiable</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">Logística segura y puntual en todos sus pedidos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ PRODUCTS ════════════════════ -->
+<section id="productos" class="py-24 px-6" style="background:var(--light);">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 fade-up">
+      <div class="section-label">Catálogo</div>
+      <h2 class="text-4xl md:text-5xl font-black mt-2" style="font-family:'Playfair Display',serif;">Nuestros Productos</h2>
+      <p class="text-gray-500 mt-3 max-w-xl mx-auto">Calidad premium para cada rincón de tu hogar o proyecto.</p>
+    </div>
+
+    <!-- ── AZULEJOS ── -->
+    <div class="cat-divider fade-up">
+      <span>Azulejos</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- product cards azulejos -->
+      <div class="product-card fade-up">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=600&q=80" alt="Azulejo Mármol Blanco" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Azulejo Mármol Blanco</h4>
+          <p class="text-xs text-gray-400 mb-3">60×60 cm · Acabado brillante</p>
+          <p class="text-sm text-gray-500 mb-4">Elegante diseño tipo mármol, ideal para baños y cocinas.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$185 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20M%C3%A1rmol%20Blanco" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.1s">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Azulejo Cemento Gris" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Azulejo Cemento Gris</h4>
+          <p class="text-xs text-gray-400 mb-3">30×60 cm · Acabado mate</p>
+          <p class="text-sm text-gray-500 mb-4">Estilo industrial minimalista, perfecto para interiores modernos.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$160 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20Cemento%20Gris" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.2s">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Azulejo Subway Blanco" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Azulejo Subway Blanco</h4>
+          <p class="text-xs text-gray-400 mb-3">10×30 cm · Acabado brillante</p>
+          <p class="text-sm text-gray-500 mb-4">Clásico atemporal, versátil para cocinas y baños.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$120 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20Subway%20Blanco" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BAÑOS & SANITARIOS ── -->
+    <div class="cat-divider fade-up">
+      <span>Baños &amp; Sanitarios</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="product-card fade-up">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Lavabo Suspendido" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Lavabo Suspendido</h4>
+          <p class="text-xs text-gray-400 mb-3">Cerámica · Blanco mate</p>
+          <p class="text-sm text-gray-500 mb-4">Diseño flotante moderno, fácil instalación y limpieza.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$2,400 <span class="text-xs font-normal text-gray-400">/ pieza</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20Suspendido" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.1s">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80" alt="Tina de Baño Ovalada" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Tina Ovalada Exenta</h4>
+          <p class="text-xs text-gray-400 mb-3">Acrílico · Blanco brillante</p>
+          <p class="text-sm text-gray-500 mb-4">Tina de lujo independiente, el centro de cualquier baño.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$8,900 <span class="text-xs font-normal text-gray-400">/ pieza</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Tina%20Ovalada%20Exenta" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.2s">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=600&q=80" alt="Inodoro Inteligente" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Inodoro Alargado</h4>
+          <p class="text-xs text-gray-400 mb-3">Cerámica · Descarga dual</p>
+          <p class="text-sm text-gray-500 mb-4">Eficiencia hídrica y diseño compacto moderno.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$3,200 <span class="text-xs font-normal text-gray-400">/ pieza</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Inodoro%20Alargado" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REGADERAS ── -->
+    <div class="cat-divider fade-up">
+      <span>Regaderas</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="product-card fade-up">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1620626011761-996317702b88?w=600&q=80" alt="Regadera Lluvia" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Regadera Lluvia 30cm</h4>
+          <p class="text-xs text-gray-400 mb-3">Acero inoxidable · Negro mate</p>
+          <p class="text-sm text-gray-500 mb-4">Experiencia spa en casa, instalación de techo empotrada.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$1,850 <span class="text-xs font-normal text-gray-400">/ pieza</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Regadera%20Lluvia%2030cm" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.1s">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1585909695284-32d2985ac9c0?w=600&q=80" alt="Kit Ducha Completo" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Kit Ducha Completo</h4>
+          <p class="text-xs text-gray-400 mb-3">Cromo · Con mezclador termostático</p>
+          <p class="text-sm text-gray-500 mb-4">Control preciso de temperatura, acabado cromado elegante.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$3,600 <span class="text-xs font-normal text-gray-400">/ kit</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Kit%20Ducha%20Completo" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.2s">
+        <div class="overflow-hidden h-52"><img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80" alt="Regadera de Mano" class="w-full h-full object-cover"/></div>
+        <div class="p-5">
+          <h4 class="font-semibold text-base mb-1" style="font-family:'Playfair Display',serif;">Regadera de Mano Premium</h4>
+          <p class="text-xs text-gray-400 mb-3">ABS cromado · 3 funciones</p>
+          <p class="text-sm text-gray-500 mb-4">Flexible, ligera y con múltiples modos de flujo.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$680 <span class="text-xs font-normal text-gray-400">/ pieza</span></span>
+            <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Regadera%20de%20Mano%20Premium" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.413-.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ PROJECTS GALLERY ════════════════════ -->
+<section id="proyectos" class="py-24 px-6 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 fade-up">
+      <div class="section-label">Galería</div>
+      <h2 class="text-4xl md:text-5xl font-black mt-2" style="font-family:'Playfair Display',serif;">Proyectos Realizados</h2>
+      <p class="text-gray-500 mt-3 max-w-xl mx-auto">Espacios transformados con nuestros materiales. Así lucen en obra real.</p>
+    </div>
+
+    <!-- Masonry-style grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="gallery-item h-64 fade-up">
+        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80" alt="Baño moderno proyecto 1"/>
+        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Baño principal · Acapulco</span></div>
+      </div>
+      <div class="gallery-item h-64 fade-up" style="transition-delay:0.1s">
+        <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80" alt="Baño de lujo proyecto 2"/>
+        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Suite master · Chilpancingo</span></div>
+      </div>
+      <div class="gallery-item h-64 row-span-1 fade-up" style="transition-delay:0.2s">
+        <img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=800&q=80" alt="Azulejos proyecto"/>
+        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Cocina · Ometepec</span></div>
+      </div>
+      <div class="gallery-item h-64 fade-up" style="transition-delay:0.15s">
+        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80" alt="Ducha proyecto"/>
+        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Ducha italiana · Zihuatanejo</span></div>
+      </div>
+      <div class="gallery-item h-64 fade-up" style="transition-delay:0.25s">
+        <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&q=80" alt="Loseta proyecto"/>
+        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Piso exterior · Taxco</span></div>
+      </div>
+      <div class="gallery-item h-64 fade-up" style="transition-delay:0.35s">
+        <img src="https://images.unsplash.com/photo-1620626011761-996317702b88?w=800&q=80" alt="Regadera proyecto"/>
+        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Regadera lluvia · Acapulco</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FAQ ════════════════════ -->
+<section class="py-24 px-6" style="background:var(--light);">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-16 fade-up">
+      <div class="section-label">FAQ</div>
+      <h2 class="text-4xl font-black mt-2" style="font-family:'Playfair Display',serif;">Preguntas Frecuentes</h2>
+    </div>
+    <div class="space-y-0 fade-up">
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Hacen envíos fuera de Guerrero?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body text-gray-500 text-sm leading-relaxed">
+          Sí, realizamos envíos a todo México. El costo y tiempo de entrega varía según la distancia y el volumen del pedido. Contáctanos por WhatsApp para cotizar tu envío.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Puedo ver los productos en persona antes de comprar?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body text-gray-500 text-sm leading-relaxed">
+          Por supuesto. Contamos con showroom en Guerrero donde puedes ver y tocar todos nuestros materiales. Escríbenos para agendar una visita.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Ofrecen asesoría para elegir materiales?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body text-gray-500 text-sm leading-relaxed">
+          Sí. Nuestro equipo te ayuda a seleccionar los materiales ideales según tu presupuesto, espacio y estilo. El servicio de asesoría es completamente gratuito.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Cuál es el pedido mínimo?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body text-gray-500 text-sm leading-relaxed">
+          No tenemos pedido mínimo para compras al menudeo. Para mayoreo y proyectos grandes ofrecemos precios especiales. Consúltanos.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Aceptan tarjeta o solo efectivo?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body text-gray-500 text-sm leading-relaxed">
+          Aceptamos efectivo, transferencia bancaria y tarjetas de crédito/débito. Para pedidos grandes también manejamos crédito con anticipo.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CONTACT ════════════════════ -->
+<section id="contacto" class="py-24 px-6 bg-white">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16 fade-up">
+      <div class="section-label">Contacto</div>
+      <h2 class="text-4xl md:text-5xl font-black mt-2" style="font-family:'Playfair Display',serif;">¿Tienes un proyecto?</h2>
+      <p class="text-gray-500 mt-3 max-w-xl mx-auto">Escríbenos y un asesor te contactará a la brevedad.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <!-- Form -->
+      <div class="fade-up bg-gray-50 rounded-2xl p-8">
+        <div class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Nombre completo</label>
+            <input id="f-name" type="text" placeholder="Tu nombre" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all bg-white"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Teléfono</label>
+            <input id="f-phone" type="tel" placeholder="Tu teléfono" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all bg-white"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Mensaje</label>
+            <textarea id="f-message" rows="4" placeholder="¿En qué podemos ayudarte?" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all bg-white resize-none"></textarea>
+          </div>
+          <button onclick="sendWhatsApp()" class="btn-red w-full py-4 rounded-lg text-sm uppercase tracking-widest">
+            Enviar por WhatsApp
+          </button>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="fade-up space-y-8" style="transition-delay:0.15s">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
+            <span class="material-symbols-outlined text-xl" style="color:var(--red);">location_on</span>
+          </div>
+          <div>
+            <p class="font-semibold text-sm mb-0.5">Dirección</p>
+            <p class="text-gray-500 text-sm">Guerrero, México</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
+            <span class="material-symbols-outlined text-xl" style="color:var(--red);">call</span>
+          </div>
+          <div>
+            <p class="font-semibold text-sm mb-0.5">WhatsApp / Teléfono</p>
+            <a href="https://wa.me/527441234567" target="_blank" class="text-sm" style="color:var(--red);">+52 (744) 123 4567</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
+            <span class="material-symbols-outlined text-xl" style="color:var(--red);">schedule</span>
+          </div>
+          <div>
+            <p class="font-semibold text-sm mb-0.5">Horario de atención</p>
+            <p class="text-gray-500 text-sm">Lun – Sáb: 9:00am – 7:00pm</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
+            <span class="material-symbols-outlined text-xl" style="color:var(--red);">mail</span>
+          </div>
+          <div>
+            <p class="font-semibold text-sm mb-0.5">Correo electrónico</p>
+            <a href="mailto:contacto@mayesa.com" class="text-sm" style="color:var(--red);">contacto@mayesa.com</a>
+          </div>
+        </div>
+
+        <!-- CTA WhatsApp grande -->
+        <a href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20quiero%20información%20sobre%20sus%20productos" target="_blank"
+           class="btn-wa flex items-center justify-center gap-3 w-full py-4 rounded-xl text-sm font-semibold uppercase tracking-widest mt-4">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chatear en WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer class="py-12 px-6" style="background:var(--charcoal);">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div>
+      <span class="text-white text-2xl font-black" style="font-family:'Playfair Display',serif;">MAYESA</span>
+      <p class="text-gray-500 text-xs mt-1">© 2025 MAYESA · Materiales de Construcción · Guerrero, México</p>
+    </div>
+    <div class="flex gap-8 text-xs text-gray-500 uppercase tracking-widest">
+      <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+      <a href="#" class="hover:text-white transition-colors">Términos</a>
+      <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════ WA FLOAT ════════════════════ -->
+<a id="wa-float" href="https://wa.me/527441234567?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank" title="Chatea con nosotros">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ════════════════════ SCRIPTS ════════════════════ -->
+<script>
+  // ── Navbar scroll effect ──
+  const navbar = document.getElementById('navbar');
+  const navLogo = document.getElementById('nav-logo');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+      navLogo.style.color = '#1a1a1a';
+      navLinks.forEach(l => { l.style.color = '#374151'; });
+    } else {
+      navbar.classList.remove('scrolled');
+      navLogo.style.color = '#fff';
+      navLinks.forEach(l => { l.style.color = 'rgba(255,255,255,0.9)'; });
+    }
+  });
+
+  // ── Mobile menu ──
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.add('open');
+  });
+  document.getElementById('close-menu').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.remove('open');
+  });
+  function closeMobileMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+  }
+
+  // ── FAQ toggle ──
+  function toggleFaq(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.faq-btn').forEach(b => b.classList.remove('open'));
+    if (!isOpen) {
+      body.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  // ── Scroll animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── WhatsApp form ──
+  function sendWhatsApp() {
+    const name = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const msg = document.getElementById('f-message').value.trim();
+    if (!name) { alert('Por favor ingresa tu nombre.'); return; }
+    const text = `Hola MAYESA, mi nombre es ${name}${phone ? ', mi teléfono es ' + phone : ''}. ${msg || 'Quiero información sobre sus productos.'}`;
+    window.open('https://wa.me/527441234567?text=' + encodeURIComponent(text), '_blank');
+  }
+
+  // ── Smooth scroll for nav links ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
