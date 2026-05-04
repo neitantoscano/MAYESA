@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo — MAYESA Materiales de Construcción</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #b3282b;
+      --red-dark: #8f1f22;
+      --charcoal: #1a1a1a;
+      --light: #f9f7f4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+    /* ── NAV ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 24px rgba(0,0,0,0.08);
+    }
+
+    /* ── BUTTONS ── */
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-red:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(179,40,43,0.35);
+    }
+    .btn-red:active { transform: translateY(0); }
+
+    .btn-wa {
+      background: #25d366;
+      color: #fff;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-wa:hover {
+      background: #1ebe5d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+    }
+
+    /* ── CARDS ── */
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.13);
+    }
+    .product-card img { transition: transform 0.5s; }
+    .product-card:hover img { transform: scale(1.06); }
+
+    /* ── CATEGORY DIVIDER ── */
+    .cat-divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 4rem 0 2rem;
+    }
+    .cat-divider span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700; white-space: nowrap;
+      color: var(--charcoal);
+    }
+    .cat-divider::before, .cat-divider::after {
+      content: ''; flex: 1; height: 1px; background: #e5e7eb;
+    }
+
+    /* ── SUCURSALES ── */
+    .sucursal-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .sucursal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    }
+    .map-placeholder {
+      width: 100%; height: 180px;
+      background: linear-gradient(135deg, #e8e4df 0%, #d4cfc9 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .map-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(0,0,0,0.04) 30px, rgba(0,0,0,0.04) 31px),
+        repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(0,0,0,0.04) 30px, rgba(0,0,0,0.04) 31px);
+    }
+
+    /* ── HERO BANNER ── */
+    .catalog-hero {
+      background: linear-gradient(135deg, var(--charcoal) 0%, #2d2d2d 100%);
+      position: relative; overflow: hidden;
+    }
+    .catalog-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=1600&q=80') center/cover no-repeat;
+      opacity: 0.15;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--red);
+      border: 1px solid var(--red); border-radius: 999px;
+      padding: 0.25rem 0.85rem; margin-bottom: 0.75rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── MOBILE NAV ── */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+
+    /* ── WHATSAPP FLOAT ── */
+    #wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      width: 60px; height: 60px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.45);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: pulse-wa 2.5s infinite;
+    }
+    #wa-float:hover { transform: scale(1.12); }
+    @keyframes pulse-wa {
+      0%,100% { box-shadow: 0 8px 24px rgba(37,211,102,0.45); }
+      50% { box-shadow: 0 8px 40px rgba(37,211,102,0.7); }
+    }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    .badge-new { background: #fef3c7; color: #92400e; }
+    .badge-hot { background: #fee2e2; color: #991b1b; }
+    .badge-sale { background: #d1fae5; color: #065f46; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ NAVBAR ════════════════════════════ -->
+<nav id="navbar" class="px-6 md:px-12 py-5 flex items-center justify-between">
+  <a href="index.html" class="text-2xl font-black tracking-widest" style="font-family:'Playfair Display',serif; color:var(--charcoal);">MAYESA</a>
+
+  <!-- Desktop links -->
+  <div class="hidden md:flex items-center gap-8">
+    <a href="index.html" class="text-gray-500 hover:text-gray-900 text-sm font-medium transition-colors">Inicio</a>
+    <a href="productos.html" class="text-sm font-medium transition-colors border-b-2 pb-0.5" style="color:var(--red); border-color:var(--red);">Productos</a>
+    <a href="index.html#proyectos" class="text-gray-500 hover:text-gray-900 text-sm font-medium transition-colors">Proyectos</a>
+    <a href="index.html#contacto" class="text-gray-500 hover:text-gray-900 text-sm font-medium transition-colors">Contacto</a>
+  </div>
+
+  <div class="hidden md:flex items-center gap-3">
+    <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información%20sobre%20sus%20productos" target="_blank"
+       class="btn-wa flex items-center gap-2 px-5 py-2.5 rounded-full text-sm">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="index.html#contacto" class="btn-red px-5 py-2.5 rounded-full text-sm">Contacto</a>
+  </div>
+
+  <!-- Hamburger -->
+  <button id="hamburger" class="md:hidden focus:outline-none" style="color:var(--charcoal);">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-[99] flex-col items-center justify-center gap-8 text-center" style="background:rgba(26,26,26,0.97)">
+  <button id="close-menu" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
+  <a href="index.html"       class="text-white text-2xl font-semibold block">Inicio</a>
+  <a href="productos.html"   class="text-2xl font-semibold block" style="color:var(--red);">Productos</a>
+  <a href="index.html#proyectos" class="text-white text-2xl font-semibold block">Proyectos</a>
+  <a href="index.html#contacto"  class="text-white text-2xl font-semibold block">Contacto</a>
+  <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-lg mt-4 inline-block">WhatsApp</a>
+</div>
+
+<!-- ════════════════════ CATALOG HERO BANNER ════════════════════ -->
+<div class="catalog-hero pt-32 pb-20 px-6 text-center">
+  <div class="relative z-10 max-w-3xl mx-auto fade-up">
+    <div class="section-label" style="color:rgba(255,255,255,0.8); border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.08);">Catálogo Completo</div>
+    <h1 class="text-4xl md:text-6xl font-black text-white mt-3 mb-5 leading-tight">
+      Nuestros Productos
+    </h1>
+    <p class="text-white/75 text-lg max-w-xl mx-auto leading-relaxed">
+      Materiales de construcción premium para transformar cualquier espacio. Pide tu cotización directo por WhatsApp.
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════ CATALOG ════════════════════ -->
+<section class="py-20 px-6" style="background:var(--light);">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- ── AZULEJOS ── -->
+    <div class="cat-divider fade-up">
+      <span>Azulejos</span>
+    </div>
+    <p class="text-gray-500 text-sm mb-8 -mt-4 fade-up">Revestimientos de pared elegantes para cocinas, baños y espacios de diseño.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="product-card fade-up">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=600&q=80" alt="Azulejo Mármol Blanco" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3"><span class="badge badge-hot">Más vendido</span></div>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Azulejo Mármol Blanco</h4>
+          <p class="text-xs text-gray-400 mb-3">60×60 cm · Acabado brillante</p>
+          <p class="text-sm text-gray-500 mb-4">Elegante diseño tipo mármol, ideal para baños y cocinas de lujo.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$185 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20M%C3%A1rmol%20Blanco%2060x60" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.1s">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Azulejo Cemento Gris" class="w-full h-full object-cover"/>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Azulejo Cemento Gris</h4>
+          <p class="text-xs text-gray-400 mb-3">30×60 cm · Acabado mate</p>
+          <p class="text-sm text-gray-500 mb-4">Estilo industrial minimalista, perfecto para interiores modernos.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$160 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20Cemento%20Gris%2030x60" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.2s">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Azulejo Subway Blanco" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3"><span class="badge badge-new">Nuevo</span></div>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Azulejo Subway Blanco</h4>
+          <p class="text-xs text-gray-400 mb-3">10×30 cm · Acabado brillante</p>
+          <p class="text-sm text-gray-500 mb-4">Clásico atemporal, versátil para cocinas y baños modernos.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$120 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20Subway%20Blanco%2010x30" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.05s">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="Azulejo Hexagonal" class="w-full h-full object-cover"/>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Azulejo Hexagonal Blanco</h4>
+          <p class="text-xs text-gray-400 mb-3">Hex 20cm · Acabado mate</p>
+          <p class="text-sm text-gray-500 mb-4">Forma geométrica tendencia, ideal para pisos de baño y entrada.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$210 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20Hexagonal%20Blanco" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.15s">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Azulejo Terracota" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3"><span class="badge badge-sale">Oferta</span></div>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Azulejo Terracota Natural</h4>
+          <p class="text-xs text-gray-400 mb-3">20×20 cm · Acabado rústico</p>
+          <p class="text-sm text-gray-500 mb-4">Tono cálido y textura artesanal, perfecto para exteriores.</p>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-lg font-bold" style="color:var(--red);">$95 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+              <span class="text-xs text-gray-400 line-through ml-2">$130</span>
+            </div>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Azulejo%20Terracota%20Natural" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.25s">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=600&q=80" alt="Mosaico Decorativo" class="w-full h-full object-cover"/>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Mosaico Decorativo Azul</h4>
+          <p class="text-xs text-gray-400 mb-3">2.5×2.5 cm · Malla 30×30</p>
+          <p class="text-sm text-gray-500 mb-4">Ideal para cenefas, acentos y detalles decorativos premium.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$320 <span class="text-xs font-normal text-gray-400">/ m²</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mosaico%20Decorativo%20Azul" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end azulejos grid -->
+
+    <!-- ── BAÑOS & SANITARIOS ── -->
+    <div class="cat-divider fade-up">
+      <span>Baños &amp; Sanitarios</span>
+    </div>
+    <p class="text-gray-500 text-sm mb-8 -mt-4 fade-up">Mobiliario, sanitarios y accesorios de lujo para baños modernos.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="product-card fade-up">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Lavabo Suspendido" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3"><span class="badge badge-hot">Popular</span></div>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Lavabo Suspendido</h4>
+          <p class="text-xs text-gray-400 mb-3">Cerámica · Blanco mate</p>
+          <p class="text-sm text-gray-500 mb-4">Diseño flotante moderno, fácil instalación y limpieza diaria.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$2,400 <span class="text-xs font-normal text-gray-400">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20Suspendido" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.1s">
+        <div class="overflow-hidden h-52">
+          <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80" alt="Tina Ovalada Exenta" class="w-full h-full object-cover"/>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Tina Ovalada Exenta</h4>
+          <p class="text-xs text-gray-400 mb-3">Acrílico · Blanco brillante</p>
+          <p class="text-sm text-gray-500 mb-4">Tina de lujo independiente, el centro de cualquier baño premium.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$8,900 <span class="text-xs font-normal text-gray-400">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Tina%20Ovalada%20Exenta" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.2s">
+        <div class="overflow-hidden h-52">
+          <img src="https://images.unsplash.com/photo-1620626011761-996317702b88?w=600&q=80" alt="Inodoro Alargado" class="w-full h-full object-cover"/>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Inodoro Alargado</h4>
+          <p class="text-xs text-gray-400 mb-3">Cerámica · Descarga dual</p>
+          <p class="text-sm text-gray-500 mb-4">Eficiencia hídrica y diseño compacto para baños modernos.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$3,200 <span class="text-xs font-normal text-gray-400">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Inodoro%20Alargado" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end baños grid -->
+
+    <!-- ── REGADERAS ── -->
+    <div class="cat-divider fade-up">
+      <span>Regaderas</span>
+    </div>
+    <p class="text-gray-500 text-sm mb-8 -mt-4 fade-up">Sistemas de ducha modernos para una experiencia spa en tu hogar.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="product-card fade-up">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1585909695284-32d2985ac9c0?w=600&q=80" alt="Regadera Lluvia 30cm" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3"><span class="badge badge-hot">Top ventas</span></div>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Regadera Lluvia 30cm</h4>
+          <p class="text-xs text-gray-400 mb-3">Acero inoxidable · Negro mate</p>
+          <p class="text-sm text-gray-500 mb-4">Experiencia spa en casa, instalación de techo empotrada.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$1,850 <span class="text-xs font-normal text-gray-400">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Regadera%20Lluvia%2030cm" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.1s">
+        <div class="overflow-hidden h-52">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Kit Ducha Completo" class="w-full h-full object-cover"/>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Kit Ducha Completo</h4>
+          <p class="text-xs text-gray-400 mb-3">Cromo · Con mezclador termostático</p>
+          <p class="text-sm text-gray-500 mb-4">Control preciso de temperatura, acabado cromado elegante.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold" style="color:var(--red);">$3,600 <span class="text-xs font-normal text-gray-400">/ kit</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Kit%20Ducha%20Completo" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" style="transition-delay:0.2s">
+        <div class="overflow-hidden h-52 relative">
+          <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80" alt="Regadera de Mano Premium" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3"><span class="badge badge-sale">Oferta</span></div>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold text-base mb-1">Regadera de Mano Premium</h4>
+          <p class="text-xs text-gray-400 mb-3">ABS cromado · 3 funciones</p>
+          <p class="text-sm text-gray-500 mb-4">Flexible, ligera y con múltiples modos de flujo de agua.</p>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-lg font-bold" style="color:var(--red);">$680 <span class="text-xs font-normal text-gray-400">/ pza</span></span>
+              <span class="text-xs text-gray-400 line-through ml-2">$850</span>
+            </div>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Regadera%20de%20Mano%20Premium" target="_blank"
+               class="btn-wa flex items-center gap-1.5 px-4 py-2 rounded-full text-xs">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end regaderas grid -->
+
+  </div>
+</section>
+
+<!-- ════════════════════ SUCURSALES ════════════════════ -->
+<section class="py-24 px-6 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 fade-up">
+      <div class="section-label">Encuéntranos</div>
+      <h2 class="text-4xl md:text-5xl font-black mt-2">Visítanos en Nuestras<br/>4 Sucursales</h2>
+      <p class="text-gray-500 mt-4 max-w-xl mx-auto">Contamos con showroom en cada ubicación para que puedas ver y tocar los materiales antes de comprar.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Sucursal 1 -->
+      <div class="sucursal-card fade-up">
+        <div class="map-placeholder">
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background:var(--red);">
+              <span class="material-symbols-outlined text-white text-xl">location_on</span>
+            </div>
+            <span class="text-xs font-semibold text-gray-600 bg-white/80 px-2 py-0.5 rounded-full">Sucursal Centro</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background:var(--red);">1</div>
+            <h4 class="font-bold text-base">Sucursal Centro</h4>
+          </div>
+          <p class="text-xs text-gray-500 mb-1 flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-sm mt-0.5" style="color:var(--red);">location_on</span>
+            Av. Insurgentes 145, Col. Centro, Chilpancingo, Gro.
+          </p>
+          <p class="text-xs text-gray-500 mb-1 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">schedule</span>
+            Lun–Sáb: 9am – 7pm
+          </p>
+          <p class="text-xs text-gray-500 mb-4 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">call</span>
+            +52 (747) 472 0011
+          </p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20Centro%20en%20Chilpancingo" target="_blank"
+             class="btn-wa w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-xs">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- Sucursal 2 -->
+      <div class="sucursal-card fade-up" style="transition-delay:0.1s">
+        <div class="map-placeholder">
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background:var(--red);">
+              <span class="material-symbols-outlined text-white text-xl">location_on</span>
+            </div>
+            <span class="text-xs font-semibold text-gray-600 bg-white/80 px-2 py-0.5 rounded-full">Sucursal Acapulco</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background:var(--red);">2</div>
+            <h4 class="font-bold text-base">Sucursal Acapulco</h4>
+          </div>
+          <p class="text-xs text-gray-500 mb-1 flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-sm mt-0.5" style="color:var(--red);">location_on</span>
+            Blvd. de las Naciones 890, Acapulco, Gro.
+          </p>
+          <p class="text-xs text-gray-500 mb-1 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">schedule</span>
+            Lun–Sáb: 9am – 7pm
+          </p>
+          <p class="text-xs text-gray-500 mb-4 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">call</span>
+            +52 (744) 485 3322
+          </p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Acapulco" target="_blank"
+             class="btn-wa w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-xs">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- Sucursal 3 -->
+      <div class="sucursal-card fade-up" style="transition-delay:0.2s">
+        <div class="map-placeholder">
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background:var(--red);">
+              <span class="material-symbols-outlined text-white text-xl">location_on</span>
+            </div>
+            <span class="text-xs font-semibold text-gray-600 bg-white/80 px-2 py-0.5 rounded-full">Sucursal Ometepec</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background:var(--red);">3</div>
+            <h4 class="font-bold text-base">Sucursal Ometepec</h4>
+          </div>
+          <p class="text-xs text-gray-500 mb-1 flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-sm mt-0.5" style="color:var(--red);">location_on</span>
+            Calle Morelos 34, Col. Centro, Ometepec, Gro.
+          </p>
+          <p class="text-xs text-gray-500 mb-1 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">schedule</span>
+            Lun–Sáb: 9am – 6pm
+          </p>
+          <p class="text-xs text-gray-500 mb-4 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">call</span>
+            +52 (741) 413 0055
+          </p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Ometepec" target="_blank"
+             class="btn-wa w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-xs">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- Sucursal 4 -->
+      <div class="sucursal-card fade-up" style="transition-delay:0.3s">
+        <div class="map-placeholder">
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background:var(--red);">
+              <span class="material-symbols-outlined text-white text-xl">location_on</span>
+            </div>
+            <span class="text-xs font-semibold text-gray-600 bg-white/80 px-2 py-0.5 rounded-full">Sucursal Zihuatanejo</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background:var(--red);">4</div>
+            <h4 class="font-bold text-base">Sucursal Zihuatanejo</h4>
+          </div>
+          <p class="text-xs text-gray-500 mb-1 flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-sm mt-0.5" style="color:var(--red);">location_on</span>
+            Paseo del Pescador 22, Zihuatanejo, Gro.
+          </p>
+          <p class="text-xs text-gray-500 mb-1 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">schedule</span>
+            Lun–Sáb: 9am – 6pm
+          </p>
+          <p class="text-xs text-gray-500 mb-4 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" style="color:var(--red);">call</span>
+            +52 (755) 554 8877
+          </p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Zihuatanejo" target="_blank"
+             class="btn-wa w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-xs">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+    </div><!-- end sucursales grid -->
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer class="py-12 px-6" style="background:var(--charcoal);">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div>
+      <span class="text-white text-2xl font-black" style="font-family:'Playfair Display',serif;">MAYESA</span>
+      <p class="text-gray-500 text-xs mt-1">© 2025 MAYESA · Materiales de Construcción · Guerrero, México</p>
+    </div>
+    <div class="flex gap-8 text-xs text-gray-500 uppercase tracking-widest">
+      <a href="index.html" class="hover:text-white transition-colors">Inicio</a>
+      <a href="index.html#proyectos" class="hover:text-white transition-colors">Proyectos</a>
+      <a href="index.html#contacto" class="hover:text-white transition-colors">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════ WA FLOAT ════════════════════ -->
+<a id="wa-float" href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información%20sobre%20sus%20productos" target="_blank" title="Chatea con nosotros">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ════════════════════ SCRIPTS ════════════════════ -->
+<script>
+  // ── Mobile menu ──
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.add('open');
+  });
+  document.getElementById('close-menu').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.remove('open');
+  });
+
+  // ── Scroll animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
