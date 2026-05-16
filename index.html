@@ -3,539 +3,501 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MAYESA — Materiales de Construcción</title>
+  <title>MAYESA — Centro Azulejero</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <style>
     :root {
       --red: #b3282b;
       --red-dark: #8f1f22;
-      --cream: #fdf5e6;
+      --navy: #1a237e;
       --charcoal: #1a1a1a;
-      --gray: #6b7280;
       --light: #f9f7f4;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #fff; color: var(--charcoal); overflow-x: hidden; }
 
-    * { box-sizing: border-box; }
+    /* TOP BAR */
+    #top-bar { background: var(--navy); padding: 0.4rem 3rem; display: flex; justify-content: flex-end; align-items: center; gap: 1.5rem; }
+    #top-bar a { color: rgba(255,255,255,0.8); font-size: 0.72rem; text-decoration: none; transition: color 0.2s; }
+    #top-bar a:hover { color: #fff; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--light);
-      color: var(--charcoal);
-      overflow-x: hidden;
-    }
+    /* NAVBAR */
+    #navbar { background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0.85rem 3rem; display: flex; align-items: center; gap: 1.5rem; }
 
-    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    /* LOGO */
+    .logo-wrap { text-decoration: none; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+    .logo-text { font-size: 1.7rem; font-weight: 900; line-height: 1; }
+    .logo-sub { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); margin-top: 1px; }
 
-    /* ── NAV ── */
-    #navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      transition: background 0.4s, box-shadow 0.4s;
-    }
-    #navbar.scrolled {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 1px 24px rgba(0,0,0,0.08);
-    }
+    /* SEARCH */
+    .search-wrap { flex: 1; max-width: 500px; display: flex; align-items: center; border: 1.5px solid #e5e7eb; border-radius: 999px; padding: 0.45rem 1rem; gap: 0.5rem; transition: border-color 0.2s, box-shadow 0.2s; background: var(--light); position: relative; }
+    .search-wrap:focus-within { border-color: var(--red); box-shadow: 0 0 0 3px rgba(179,40,43,0.1); }
+    .search-wrap input { flex: 1; border: none; background: transparent; font-size: 0.85rem; outline: none; color: var(--charcoal); }
+    #search-dropdown { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); z-index: 300; max-height: 300px; overflow-y: auto; display: none; }
+    #search-dropdown.show { display: block; }
+    .s-item { padding: 0.7rem 1rem; display: flex; align-items: center; gap: 0.7rem; cursor: pointer; border-bottom: 1px solid #f3f4f6; text-decoration: none; color: var(--charcoal); transition: background 0.15s; }
+    .s-item:hover { background: var(--light); }
+    .s-item:last-child { border-bottom: none; }
+    .s-cat { font-size: 0.65rem; color: var(--red); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
 
-    /* ── HERO ── */
-    .hero-img {
-      position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&q=80') center/cover no-repeat;
-    }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.6) 100%);
-    }
+    /* PRODUCT NAV (rojo) */
+    #product-nav { background: var(--red); position: sticky; top: 63px; z-index: 99; }
+    .pnav-inner { max-width: 1280px; margin: 0 auto; padding: 0 3rem; display: flex; align-items: center; overflow-x: auto; }
+    .pnav-inner::-webkit-scrollbar { display: none; }
+    .pnav-link { color: rgba(255,255,255,0.85); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.85rem 1.2rem; text-decoration: none; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; display: flex; align-items: center; gap: 0.4rem; }
+    .pnav-link:hover { color: #fff; border-bottom-color: #fff; background: rgba(255,255,255,0.1); }
+    .pnav-link .material-symbols-outlined { font-size: 1rem; }
 
-    /* ── BUTTONS ── */
-    .btn-red {
-      background: var(--red);
-      color: #fff;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    }
-    .btn-red:hover {
-      background: var(--red-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(179,40,43,0.35);
-    }
-    .btn-red:active { transform: translateY(0); }
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, #283593 100%); position: relative; overflow: hidden; min-height: 500px; display: flex; align-items: center; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=1600&q=80') center/cover no-repeat; opacity: 0.12; }
+    .hero-grid { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 4rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; width: 100%; }
+    @media(max-width:768px){ .hero-grid { grid-template-columns: 1fr; } }
+    .stat-box { background: rgba(255,255,255,0.1); border-radius: 14px; padding: 1.25rem; text-align: center; backdrop-filter: blur(8px); }
 
-    .btn-wa {
-      background: #25d366;
-      color: #fff;
-      font-weight: 600;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    }
-    .btn-wa:hover {
-      background: #1ebe5d;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(37,211,102,0.35);
-    }
+    /* CARDS */
+    .offer-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: var(--charcoal); display: block; }
+    .offer-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .offer-card img { transition: transform 0.5s; width: 100%; height: 100%; object-fit: cover; }
+    .offer-card:hover img { transform: scale(1.05); }
 
-    /* ── CARDS ── */
-    .product-card {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.13);
-    }
-    .product-card img {
-      transition: transform 0.5s;
-    }
-    .product-card:hover img {
-      transform: scale(1.06);
-    }
+    /* GALERIA */
+    .gal-item { border-radius: 12px; overflow: hidden; position: relative; cursor: pointer; }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gal-item:hover img { transform: scale(1.07); }
+    .gal-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 1rem; }
+    .gal-item:hover .gal-overlay { opacity: 1; }
 
-    /* ── GALLERY ── */
-    .gallery-item {
-      overflow: hidden;
-      border-radius: 12px;
-      position: relative;
-      cursor: pointer;
-    }
-    .gallery-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-    .gallery-item:hover img { transform: scale(1.08); }
-    .gallery-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.35s;
-      display: flex; align-items: flex-end; padding: 1.25rem;
-    }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    /* PROVEEDORES */
+    .prov-card { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #6b7280; letter-spacing: 0.05em; transition: all 0.2s; min-height: 75px; }
+    .prov-card:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(179,40,43,0.1); }
 
-    /* ── DIVIDER ── */
-    .cat-divider {
-      display: flex; align-items: center; gap: 1rem;
-      margin: 3rem 0 2rem;
-    }
-    .cat-divider span { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; white-space: nowrap; }
-    .cat-divider::before, .cat-divider::after {
-      content: ''; flex: 1; height: 1px; background: #e5e7eb;
-    }
+    /* SUCURSALES */
+    .suc-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); transition: transform 0.3s, box-shadow 0.3s; }
+    .suc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .map-ph { width: 100%; height: 150px; background: linear-gradient(135deg, #e8e4df, #d4cfc9); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .map-ph::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(0,0,0,0.04) 28px,rgba(0,0,0,0.04) 29px), repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(0,0,0,0.04) 28px,rgba(0,0,0,0.04) 29px); }
 
-    /* ── FAQ ── */
-    .faq-item { border-bottom: 1px solid #e5e7eb; }
-    .faq-btn { width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; font-weight: 500; font-size: 1rem; background: none; border: none; cursor: pointer; }
-    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; }
-    .faq-body.open { max-height: 300px; padding-bottom: 1rem; }
-    .faq-icon { transition: transform 0.3s; font-size: 1.25rem; color: var(--red); }
-    .faq-btn.open .faq-icon { transform: rotate(45deg); }
+    /* BUTTONS */
+    .btn-red { background: var(--red); color: #fff; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .btn-red:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(179,40,43,0.3); }
+    .btn-navy { background: var(--navy); color: #fff; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
+    .btn-navy:hover { background: #283593; transform: translateY(-2px); }
+    .btn-wa { background: #25d366; color: #fff; font-weight: 600; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.45rem; }
+    .btn-wa:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.35); }
 
-    /* ── WHATSAPP FLOAT ── */
-    #wa-float {
-      position: fixed; bottom: 28px; right: 28px; z-index: 200;
-      width: 60px; height: 60px;
-      background: #25d366;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 24px rgba(37,211,102,0.45);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: pulse-wa 2.5s infinite;
-    }
-    #wa-float:hover { transform: scale(1.12); box-shadow: 0 12px 32px rgba(37,211,102,0.55); }
-    @keyframes pulse-wa {
-      0%,100% { box-shadow: 0 8px 24px rgba(37,211,102,0.45); }
-      50% { box-shadow: 0 8px 40px rgba(37,211,102,0.7); }
-    }
+    /* LABELS */
+    .sec-label { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); border: 1.5px solid var(--red); border-radius: 999px; padding: 0.25rem 0.9rem; }
+    .sec-divider { width: 48px; height: 3px; background: var(--red); border-radius: 999px; margin: 0.75rem auto 0; }
+    .badge-sale { background: var(--red); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; }
 
-    /* ── ANIMATIONS ── */
-    .fade-up {
-      opacity: 0; transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── MOBILE NAV ── */
-    #mobile-menu { display: none; }
-    #mobile-menu.open { display: flex; }
+    /* WA FLOAT */
+    #wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 400; width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(37,211,102,0.45); text-decoration: none; animation: pw 2.5s infinite; }
+    #wa-float:hover { transform: scale(1.1); }
+    @keyframes pw { 0%,100%{box-shadow:0 8px 24px rgba(37,211,102,0.45)} 50%{box-shadow:0 8px 40px rgba(37,211,102,0.7)} }
 
-    /* ── SECTION LABEL ── */
-    .section-label {
-      display: inline-block;
-      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--red);
-      border: 1px solid var(--red); border-radius: 999px;
-      padding: 0.25rem 0.85rem; margin-bottom: 0.75rem;
-    }
+    /* MOBILE MENU */
+    #mob-menu { display: none; }
+    #mob-menu.open { display: flex; }
+
+    /* SECTION PADDING */
+    .sec { padding: 4.5rem 3rem; }
+    @media(max-width:640px){ .sec { padding: 3rem 1.25rem; } .nav-inner { padding: 0.75rem 1.25rem; } .pnav-inner { padding: 0 1rem; } #top-bar { padding: 0.4rem 1rem; } }
   </style>
 </head>
 <body>
 
-<!-- ════════════════════════════ NAVBAR ════════════════════════════ -->
-<nav id="navbar" class="px-6 md:px-12 py-5 flex items-center justify-between">
-  <a href="#" class="text-white text-2xl font-black tracking-widest" style="font-family:'Playfair Display',serif;" id="nav-logo">MAYESA</a>
-
-  <!-- Desktop links -->
-  <div class="hidden md:flex items-center gap-8">
-    <a href="#inicio"    class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Inicio</a>
-    <a href="productos.html" class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Productos</a>
-    <a href="#proyectos" class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Proyectos</a>
-    <a href="#contacto"  class="nav-link text-white/90 hover:text-white text-sm font-medium transition-colors">Contacto</a>
-  </div>
-
-  <div class="hidden md:flex items-center gap-3">
-    <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20un%20producto" target="_blank"
-       class="btn-wa flex items-center gap-2 px-5 py-2.5 rounded-full text-sm">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp
-    </a>
-    <a href="productos.html" class="btn-red px-5 py-2.5 rounded-full text-sm">Ver productos</a>
-  </div>
-
-  <!-- Hamburger -->
-  <button id="hamburger" class="md:hidden text-white focus:outline-none">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-    </svg>
-  </button>
-</nav>
-
-<!-- Mobile menu -->
-<div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-[99] flex-col items-center justify-center gap-8 text-center" style="background:rgba(26,26,26,0.97)">
-  <button id="close-menu" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
-  <a href="#inicio"    onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Inicio</a>
-  <a href="productos.html" onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Productos</a>
-  <a href="#proyectos" onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Proyectos</a>
-  <a href="#contacto"  onclick="closeMobileMenu()" class="text-white text-2xl font-semibold block">Contacto</a>
-  <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-lg mt-4 inline-block">WhatsApp</a>
+<!-- TOP BAR -->
+<div id="top-bar">
+  <a href="contacto.html">📍 5 Sucursales en Guerrero</a>
+  <a href="tel:+527441234567" class="hidden md:inline">📞 (744) 123 4567</a>
+  <a href="https://wa.me/5217411306781" target="_blank">💬 WhatsApp</a>
 </div>
 
-<!-- ════════════════════════════ HERO ════════════════════════════ -->
-<section id="inicio" class="relative h-screen min-h-[640px] flex items-center justify-center text-center">
-  <div class="hero-img"></div>
-  <div class="hero-overlay"></div>
-  <div class="relative z-10 px-6 max-w-4xl mx-auto fade-up">
-    <div class="section-label mb-4" style="color:#fff;border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.1);">Guerrero, México</div>
-    <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-      TRANSFORMA<br/>TU ESPACIO
-    </h1>
-    <p class="text-white/85 text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed">
-      Azulejos, baños y regaderas de alta gama para proyectos que inspiran.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="productos.html" class="btn-red px-8 py-4 rounded-full text-sm uppercase tracking-widest">Ver Catálogo</a>
-      <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank"
-         class="btn-wa flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm uppercase tracking-widest">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Cotizar ahora
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <!-- LOGO -->
+    <a href="index.html" class="logo-wrap">
+      <div class="logo-text">
+        <span style="color:var(--red);">M</span><span style="color:var(--navy); font-size:1rem; vertical-align:super; margin:0 1px;">▲</span><span style="color:var(--red);">YESA</span>
+      </div>
+      <span class="logo-sub">Centro Azulejero</span>
+    </a>
+
+    <!-- SEARCH -->
+    <div style="position:relative; flex:1; max-width:500px;" class="hidden md:block">
+      <div class="search-wrap">
+        <span class="material-symbols-outlined" style="color:#9ca3af; font-size:1.2rem;">search</span>
+        <input id="search-input" type="text" placeholder="Buscar productos, marcas, modelos..." autocomplete="off"/>
+        <button id="clear-btn" onclick="clearSearch()" style="display:none; background:none; border:none; cursor:pointer; color:#9ca3af;">
+          <span class="material-symbols-outlined" style="font-size:1rem;">close</span>
+        </button>
+      </div>
+      <div id="search-dropdown"></div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="hidden md:flex items-center gap-3 ml-auto flex-shrink-0">
+      <a href="contacto.html" class="btn-navy px-5 py-2.5 rounded-full text-sm">Contacto</a>
+      <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank" class="btn-wa px-5 py-2.5 rounded-full text-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
       </a>
     </div>
+    <button id="hamburger" class="md:hidden ml-auto" style="background:none; border:none; cursor:pointer;">
+      <span class="material-symbols-outlined" style="font-size:1.8rem; color:var(--charcoal);">menu</span>
+    </button>
   </div>
-  <!-- scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 flex flex-col items-center gap-1 animate-bounce">
-    <span class="text-xs tracking-widest uppercase">Scroll</span>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+</nav>
+
+<!-- PRODUCT NAV (rojo) -->
+<div id="product-nav">
+  <div class="pnav-inner">
+    <a href="griferia.html"  class="pnav-link"><span class="material-symbols-outlined">shower</span>Grifería</a>
+    <a href="banos.html"     class="pnav-link"><span class="material-symbols-outlined">bathtub</span>Baños</a>
+    <a href="pisos.html"     class="pnav-link"><span class="material-symbols-outlined">grid_on</span>Pisos</a>
+    <a href="cocina.html"    class="pnav-link"><span class="material-symbols-outlined">countertops</span>Cocina</a>
+    <a href="azulejos.html"  class="pnav-link"><span class="material-symbols-outlined">texture</span>Azulejos & Adhesivos</a>
+    <a href="contacto.html"  class="pnav-link" style="margin-left:auto;"><span class="material-symbols-outlined">call</span>Contacto</a>
   </div>
-</section>
+</div>
 
-<!-- ════════════════════ VALUES STRIP ════════════════════ -->
-<section class="bg-white py-16 px-6">
-  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-    <div class="fade-up flex flex-col items-center gap-3">
-      <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background:#fdf0f0;">
-        <span class="material-symbols-outlined text-2xl" style="color:var(--red);">workspace_premium</span>
-      </div>
-      <h3 class="font-semibold text-lg" style="font-family:'Playfair Display',serif;">Alta calidad</h3>
-      <p class="text-sm text-gray-500 leading-relaxed">Materiales seleccionados para garantizar durabilidad y elegancia.</p>
-    </div>
-    <div class="fade-up flex flex-col items-center gap-3" style="transition-delay:0.1s">
-      <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background:#fdf0f0;">
-        <span class="material-symbols-outlined text-2xl" style="color:var(--red);">architecture</span>
-      </div>
-      <h3 class="font-semibold text-lg" style="font-family:'Playfair Display',serif;">Diseños modernos</h3>
-      <p class="text-sm text-gray-500 leading-relaxed">Tendencias actuales en arquitectura e interiorismo.</p>
-    </div>
-    <div class="fade-up flex flex-col items-center gap-3" style="transition-delay:0.2s">
-      <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background:#fdf0f0;">
-        <span class="material-symbols-outlined text-2xl" style="color:var(--red);">local_shipping</span>
-      </div>
-      <h3 class="font-semibold text-lg" style="font-family:'Playfair Display',serif;">Entrega confiable</h3>
-      <p class="text-sm text-gray-500 leading-relaxed">Logística segura y puntual en todos sus pedidos.</p>
-    </div>
-  </div>
-</section>
+<!-- MOBILE MENU -->
+<div id="mob-menu" class="fixed inset-0 z-[200] flex-col items-center justify-center gap-6 text-center" style="background:rgba(20,20,20,0.97);">
+  <button id="close-mob" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;">✕</button>
+  <a href="griferia.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Grifería</a>
+  <a href="banos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Baños</a>
+  <a href="pisos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Pisos</a>
+  <a href="cocina.html"   onclick="closeMob()" class="text-white text-xl font-semibold block">Cocina</a>
+  <a href="azulejos.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Azulejos & Adhesivos</a>
+  <a href="contacto.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Contacto</a>
+  <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-base mt-4">WhatsApp</a>
+</div>
 
-<!-- ════════════════════ PROJECTS GALLERY ════════════════════ -->
-<section id="proyectos" class="py-24 px-6 bg-white">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16 fade-up">
-      <div class="section-label">Galería</div>
-      <h2 class="text-4xl md:text-5xl font-black mt-2" style="font-family:'Playfair Display',serif;">Proyectos Realizados</h2>
-      <p class="text-gray-500 mt-3 max-w-xl mx-auto">Espacios transformados con nuestros materiales. Así lucen en obra real.</p>
-    </div>
-
-    <!-- Masonry-style grid -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <div class="gallery-item h-64 fade-up">
-        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80" alt="Baño moderno proyecto 1"/>
-        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Baño principal · Acapulco</span></div>
-      </div>
-      <div class="gallery-item h-64 fade-up" style="transition-delay:0.1s">
-        <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80" alt="Baño de lujo proyecto 2"/>
-        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Suite master · Chilpancingo</span></div>
-      </div>
-      <div class="gallery-item h-64 row-span-1 fade-up" style="transition-delay:0.2s">
-        <img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=800&q=80" alt="Azulejos proyecto"/>
-        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Cocina · Ometepec</span></div>
-      </div>
-      <div class="gallery-item h-64 fade-up" style="transition-delay:0.15s">
-        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80" alt="Ducha proyecto"/>
-        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Ducha italiana · Zihuatanejo</span></div>
-      </div>
-      <div class="gallery-item h-64 fade-up" style="transition-delay:0.25s">
-        <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&q=80" alt="Loseta proyecto"/>
-        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Piso exterior · Taxco</span></div>
-      </div>
-      <div class="gallery-item h-64 fade-up" style="transition-delay:0.35s">
-        <img src="https://images.unsplash.com/photo-1620626011761-996317702b88?w=800&q=80" alt="Regadera proyecto"/>
-        <div class="gallery-overlay"><span class="text-white text-sm font-semibold">Regadera lluvia · Acapulco</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════ FAQ ════════════════════ -->
-<section class="py-24 px-6" style="background:var(--light);">
-  <div class="max-w-3xl mx-auto">
-    <div class="text-center mb-16 fade-up">
-      <div class="section-label">FAQ</div>
-      <h2 class="text-4xl font-black mt-2" style="font-family:'Playfair Display',serif;">Preguntas Frecuentes</h2>
-    </div>
-    <div class="space-y-0 fade-up">
-      <div class="faq-item">
-        <button class="faq-btn" onclick="toggleFaq(this)">
-          ¿Hacen envíos fuera de Guerrero?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-body text-gray-500 text-sm leading-relaxed">
-          Sí, realizamos envíos a todo México. El costo y tiempo de entrega varía según la distancia y el volumen del pedido. Contáctanos por WhatsApp para cotizar tu envío.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-btn" onclick="toggleFaq(this)">
-          ¿Puedo ver los productos en persona antes de comprar?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-body text-gray-500 text-sm leading-relaxed">
-          Por supuesto. Contamos con showroom en Guerrero donde puedes ver y tocar todos nuestros materiales. Escríbenos para agendar una visita.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-btn" onclick="toggleFaq(this)">
-          ¿Ofrecen asesoría para elegir materiales?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-body text-gray-500 text-sm leading-relaxed">
-          Sí. Nuestro equipo te ayuda a seleccionar los materiales ideales según tu presupuesto, espacio y estilo. El servicio de asesoría es completamente gratuito.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-btn" onclick="toggleFaq(this)">
-          ¿Cuál es el pedido mínimo?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-body text-gray-500 text-sm leading-relaxed">
-          No tenemos pedido mínimo para compras al menudeo. Para mayoreo y proyectos grandes ofrecemos precios especiales. Consúltanos.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-btn" onclick="toggleFaq(this)">
-          ¿Aceptan tarjeta o solo efectivo?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-body text-gray-500 text-sm leading-relaxed">
-          Aceptamos efectivo, transferencia bancaria y tarjetas de crédito/débito. Para pedidos grandes también manejamos crédito con anticipo.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════ CONTACT ════════════════════ -->
-<section id="contacto" class="py-24 px-6 bg-white">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-16 fade-up">
-      <div class="section-label">Contacto</div>
-      <h2 class="text-4xl md:text-5xl font-black mt-2" style="font-family:'Playfair Display',serif;">¿Tienes un proyecto?</h2>
-      <p class="text-gray-500 mt-3 max-w-xl mx-auto">Escríbenos y un asesor te contactará a la brevedad.</p>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-      <!-- Form -->
-      <div class="fade-up bg-gray-50 rounded-2xl p-8">
-        <div class="space-y-5">
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Nombre completo</label>
-            <input id="f-name" type="text" placeholder="Tu nombre" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all bg-white"/>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Teléfono</label>
-            <input id="f-phone" type="tel" placeholder="Tu teléfono" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all bg-white"/>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Mensaje</label>
-            <textarea id="f-message" rows="4" placeholder="¿En qué podemos ayudarte?" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all bg-white resize-none"></textarea>
-          </div>
-          <button onclick="sendWhatsApp()" class="btn-red w-full py-4 rounded-lg text-sm uppercase tracking-widest">
-            Enviar por WhatsApp
-          </button>
-        </div>
-      </div>
-
-      <!-- Info -->
-      <div class="fade-up space-y-8" style="transition-delay:0.15s">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
-            <span class="material-symbols-outlined text-xl" style="color:var(--red);">location_on</span>
-          </div>
-          <div>
-            <p class="font-semibold text-sm mb-0.5">Dirección</p>
-            <p class="text-gray-500 text-sm">Guerrero, México</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
-            <span class="material-symbols-outlined text-xl" style="color:var(--red);">call</span>
-          </div>
-          <div>
-            <p class="font-semibold text-sm mb-0.5">WhatsApp / Teléfono</p>
-            <a href="https://wa.me/5217411306781" target="_blank" class="text-sm" style="color:var(--red);">+52 (744) 123 4567</a>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
-            <span class="material-symbols-outlined text-xl" style="color:var(--red);">schedule</span>
-          </div>
-          <div>
-            <p class="font-semibold text-sm mb-0.5">Horario de atención</p>
-            <p class="text-gray-500 text-sm">Lun – Sáb: 9:00am – 7:00pm</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:#fdf0f0;">
-            <span class="material-symbols-outlined text-xl" style="color:var(--red);">mail</span>
-          </div>
-          <div>
-            <p class="font-semibold text-sm mb-0.5">Correo electrónico</p>
-            <a href="mailto:contacto@mayesa.com" class="text-sm" style="color:var(--red);">contacto@mayesa.com</a>
-          </div>
-        </div>
-
-        <!-- CTA WhatsApp grande -->
-        <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información%20sobre%20sus%20productos" target="_blank"
-           class="btn-wa flex items-center justify-center gap-3 w-full py-4 rounded-xl text-sm font-semibold uppercase tracking-widest mt-4">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Chatear en WhatsApp
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="fade-up">
+      <div class="sec-label" style="color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.08);">Guerrero, México</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;color:#fff;line-height:1.1;margin:0.75rem 0 1rem;">Transforma<br/>tu espacio</h1>
+      <p style="color:rgba(255,255,255,0.8);font-size:1rem;line-height:1.7;margin-bottom:2rem;max-width:430px;">Azulejos, grifería, pisos y baños de alta gama. Materiales premium para proyectos que inspiran en Guerrero y todo México.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="azulejos.html" class="btn-red px-7 py-3 rounded-full text-sm" style="text-transform:uppercase;letter-spacing:0.06em;">Ver catálogo</a>
+        <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20una%20cotización" target="_blank" class="btn-wa px-7 py-3 rounded-full text-sm" style="text-transform:uppercase;letter-spacing:0.06em;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Cotizar ahora
         </a>
       </div>
     </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;" class="fade-up">
+      <div class="stat-box"><div style="font-size:2rem;font-weight:900;color:#fff;">+500</div><div style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Productos</div></div>
+      <div class="stat-box"><div style="font-size:2rem;font-weight:900;color:#fff;">5</div><div style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Sucursales</div></div>
+      <div class="stat-box"><div style="font-size:2rem;font-weight:900;color:#fff;">+15</div><div style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Años de exp.</div></div>
+      <div class="stat-box"><div style="font-size:2rem;font-weight:900;color:#fff;">+1,200</div><div style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Clientes</div></div>
+    </div>
   </div>
 </section>
 
-<!-- ════════════════════ FOOTER ════════════════════ -->
-<footer class="py-12 px-6" style="background:var(--charcoal);">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-    <div>
-      <span class="text-white text-2xl font-black" style="font-family:'Playfair Display',serif;">MAYESA</span>
-      <p class="text-gray-500 text-xs mt-1">© 2025 MAYESA · Materiales de Construcción · Guerrero, México</p>
+<!-- OFERTAS -->
+<section class="sec" style="background:var(--light);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="text-center fade-up" style="margin-bottom:2.5rem;">
+      <div class="sec-label">Promociones</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;margin-top:0.5rem;">Ofertas Destacadas</h2>
+      <div class="sec-divider"></div>
     </div>
-    <div class="flex gap-8 text-xs text-gray-500 uppercase tracking-widest">
-      <a href="#" class="hover:text-white transition-colors">Privacidad</a>
-      <a href="#" class="hover:text-white transition-colors">Términos</a>
-      <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;">
+      <a href="azulejos.html" class="offer-card fade-up">
+        <div style="overflow:hidden;height:190px;"><img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=600&q=80" alt="Azulejo"/></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.4rem;">
+            <h4 style="font-weight:700;font-size:0.9rem;">Azulejo Mármol Blanco 60×60</h4>
+            <span class="badge-sale">-30%</span>
+          </div>
+          <p style="color:#6b7280;font-size:0.78rem;margin-bottom:0.6rem;">Acabado brillante · Por tiempo limitado</p>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span style="color:var(--red);font-weight:700;font-size:1.05rem;">$185/m²</span>
+            <span style="color:#9ca3af;font-size:0.82rem;text-decoration:line-through;">$265/m²</span>
+          </div>
+        </div>
+      </a>
+      <a href="griferia.html" class="offer-card fade-up" style="transition-delay:0.1s">
+        <div style="overflow:hidden;height:190px;"><img src="https://images.unsplash.com/photo-1585909695284-32d2985ac9c0?w=600&q=80" alt="Regadera"/></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.4rem;">
+            <h4 style="font-weight:700;font-size:0.9rem;">Regadera Lluvia 30cm Negro Mate</h4>
+            <span class="badge-sale">-20%</span>
+          </div>
+          <p style="color:#6b7280;font-size:0.78rem;margin-bottom:0.6rem;">Acero inoxidable · Empotrada</p>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span style="color:var(--red);font-weight:700;font-size:1.05rem;">$1,480</span>
+            <span style="color:#9ca3af;font-size:0.82rem;text-decoration:line-through;">$1,850</span>
+          </div>
+        </div>
+      </a>
+      <a href="banos.html" class="offer-card fade-up" style="transition-delay:0.2s">
+        <div style="overflow:hidden;height:190px;"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Lavabo"/></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.4rem;">
+            <h4 style="font-weight:700;font-size:0.9rem;">Lavabo Suspendido Blanco Mate</h4>
+            <span class="badge-sale">-15%</span>
+          </div>
+          <p style="color:#6b7280;font-size:0.78rem;margin-bottom:0.6rem;">Cerámica premium · Diseño flotante</p>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span style="color:var(--red);font-weight:700;font-size:1.05rem;">$2,040</span>
+            <span style="color:#9ca3af;font-size:0.82rem;text-decoration:line-through;">$2,400</span>
+          </div>
+        </div>
+      </a>
+      <a href="pisos.html" class="offer-card fade-up" style="transition-delay:0.3s">
+        <div style="overflow:hidden;height:190px;"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Porcelanato"/></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.4rem;">
+            <h4 style="font-weight:700;font-size:0.9rem;">Porcelanato Cemento Gris 60×60</h4>
+            <span class="badge-sale">-25%</span>
+          </div>
+          <p style="color:#6b7280;font-size:0.78rem;margin-bottom:0.6rem;">Alta resistencia · Tráfico intenso</p>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span style="color:var(--red);font-weight:700;font-size:1.05rem;">$195/m²</span>
+            <span style="color:#9ca3af;font-size:0.82rem;text-decoration:line-through;">$260/m²</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TRABAJOS REALIZADOS -->
+<section class="sec" style="background:#fff;">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="text-center fade-up" style="margin-bottom:2.5rem;">
+      <div class="sec-label">Galería</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;margin-top:0.5rem;">Trabajos Realizados</h2>
+      <div class="sec-divider"></div>
+      <p style="color:#6b7280;margin-top:1rem;font-size:0.9rem;">Espacios reales transformados con nuestros materiales en Guerrero y todo México.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:200px 200px;gap:1rem;">
+      <div class="gal-item fade-up" style="grid-row:span 2;">
+        <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80" alt="Suite"/>
+        <div class="gal-overlay"><span style="color:#fff;font-size:0.82rem;font-weight:600;">Suite Master · Acapulco</span></div>
+      </div>
+      <div class="gal-item fade-up" style="transition-delay:0.1s">
+        <img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=600&q=80" alt="Cocina"/>
+        <div class="gal-overlay"><span style="color:#fff;font-size:0.82rem;font-weight:600;">Cocina · Chilpancingo</span></div>
+      </div>
+      <div class="gal-item fade-up" style="transition-delay:0.2s">
+        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Ducha"/>
+        <div class="gal-overlay"><span style="color:#fff;font-size:0.82rem;font-weight:600;">Ducha italiana · Zihuatanejo</span></div>
+      </div>
+      <div class="gal-item fade-up" style="transition-delay:0.15s">
+        <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80" alt="Piso"/>
+        <div class="gal-overlay"><span style="color:#fff;font-size:0.82rem;font-weight:600;">Piso exterior · Taxco</span></div>
+      </div>
+      <div class="gal-item fade-up" style="transition-delay:0.25s">
+        <img src="https://images.unsplash.com/photo-1620626011761-996317702b88?w=600&q=80" alt="Regadera"/>
+        <div class="gal-overlay"><span style="color:#fff;font-size:0.82rem;font-weight:600;">Regadera lluvia · Ometepec</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVEEDORES -->
+<section class="sec" style="background:var(--light);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="text-center fade-up" style="margin-bottom:2.5rem;">
+      <div class="sec-label">Alianzas</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;margin-top:0.5rem;">Nuestros Proveedores</h2>
+      <div class="sec-divider"></div>
+      <p style="color:#6b7280;margin-top:1rem;font-size:0.9rem;">Trabajamos con las mejores marcas para garantizar calidad en cada producto.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;" class="fade-up">
+      <div class="prov-card">HELVEX</div>
+      <div class="prov-card">MOEN</div>
+      <div class="prov-card">URREA</div>
+      <div class="prov-card">TEKA</div>
+      <div class="prov-card">DICA</div>
+      <div class="prov-card">VITROMEX</div>
+      <div class="prov-card">INTERCERAMIC</div>
+      <div class="prov-card">LAMOSA</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 SUCURSALES -->
+<section class="sec" style="background:#fff;">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="text-center fade-up" style="margin-bottom:2.5rem;">
+      <div class="sec-label">Encuéntranos</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;margin-top:0.5rem;">Nuestras 5 Sucursales</h2>
+      <div class="sec-divider"></div>
+      <p style="color:#6b7280;margin-top:1rem;font-size:0.9rem;">Showroom en cada ubicación. Ven a ver y tocar los materiales antes de comprar.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem;">
+
+      <!-- Plantilla sucursal (x5) -->
+      <!-- 1 -->
+      <div class="suc-card fade-up">
+        <div class="map-ph"><div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;"><div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span></div><span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Chilpancingo</span></div></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;"><div style="width:22px;height:22px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;flex-shrink:0;">1</div><h4 style="font-weight:700;font-size:0.9rem;">Sucursal Centro</h4></div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Av. Insurgentes 145, Chilpancingo</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 7pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (747) 472 0011</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20sucursal%20Chilpancingo" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="suc-card fade-up" style="transition-delay:0.1s">
+        <div class="map-ph"><div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;"><div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span></div><span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Acapulco</span></div></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;"><div style="width:22px;height:22px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;flex-shrink:0;">2</div><h4 style="font-weight:700;font-size:0.9rem;">Sucursal Acapulco</h4></div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Blvd. de las Naciones 890</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 7pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (744) 485 3322</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20sucursal%20Acapulco" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="suc-card fade-up" style="transition-delay:0.2s">
+        <div class="map-ph"><div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;"><div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span></div><span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Ometepec</span></div></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;"><div style="width:22px;height:22px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;flex-shrink:0;">3</div><h4 style="font-weight:700;font-size:0.9rem;">Sucursal Ometepec</h4></div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Calle Morelos 34, Ometepec</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 6pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (741) 413 0055</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20sucursal%20Ometepec" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="suc-card fade-up" style="transition-delay:0.3s">
+        <div class="map-ph"><div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;"><div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span></div><span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Zihuatanejo</span></div></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;"><div style="width:22px;height:22px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;flex-shrink:0;">4</div><h4 style="font-weight:700;font-size:0.9rem;">Sucursal Zihuatanejo</h4></div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Paseo del Pescador 22</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 6pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (755) 554 8877</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20sucursal%20Zihuatanejo" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="suc-card fade-up" style="transition-delay:0.4s">
+        <div class="map-ph"><div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;"><div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span></div><span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Taxco</span></div></div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;"><div style="width:22px;height:22px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;flex-shrink:0;">5</div><h4 style="font-weight:700;font-size:0.9rem;">Sucursal Taxco</h4></div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Av. de los Plateros 118, Taxco</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 6pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (762) 622 1199</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20sucursal%20Taxco" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:2.5rem 3rem;background:var(--charcoal);">
+  <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;">
+    <div>
+      <div style="font-size:1.3rem;font-weight:900;color:#fff;"><span style="color:var(--red);">M</span><span style="color:#818cf8;font-size:0.85rem;vertical-align:super;">▲</span><span style="color:var(--red);">YESA</span></div>
+      <p style="color:#6b7280;font-size:0.7rem;margin-top:0.2rem;">Centro Azulejero · Guerrero, México</p>
+      <p style="color:#4b5563;font-size:0.68rem;margin-top:0.15rem;">© 2025 MAYESA. Todos los derechos reservados.</p>
+    </div>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+      <a href="griferia.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Grifería</a>
+      <a href="banos.html"     style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Baños</a>
+      <a href="pisos.html"     style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Pisos</a>
+      <a href="cocina.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Cocina</a>
+      <a href="azulejos.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Azulejos</a>
+      <a href="contacto.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Contacto</a>
     </div>
   </div>
 </footer>
 
-<!-- ════════════════════ WA FLOAT ════════════════════ -->
-<a id="wa-float" href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank" title="Chatea con nosotros">
-  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- WA FLOAT -->
+<a id="wa-float" href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<!-- ════════════════════ SCRIPTS ════════════════════ -->
 <script>
-  // ── Navbar scroll effect ──
-  const navbar = document.getElementById('navbar');
-  const navLogo = document.getElementById('nav-logo');
-  const navLinks = document.querySelectorAll('.nav-link');
+  // BUSCADOR
+  const catalogoProductos = [
+    {n:'Azulejo Mármol Blanco 60×60',c:'Azulejos',u:'azulejos.html'},
+    {n:'Azulejo Cemento Gris 30×60',c:'Azulejos',u:'azulejos.html'},
+    {n:'Azulejo Subway Blanco',c:'Azulejos',u:'azulejos.html'},
+    {n:'Azulejo Hexagonal',c:'Azulejos',u:'azulejos.html'},
+    {n:'Azulejo Terracota Natural',c:'Azulejos',u:'azulejos.html'},
+    {n:'Pegasulejos Blanco',c:'Azulejos & Adhesivos',u:'azulejos.html'},
+    {n:'Adhesivo Porcelánico Gris',c:'Azulejos & Adhesivos',u:'azulejos.html'},
+    {n:'Regadera Lluvia 30cm Negro Mate',c:'Grifería',u:'griferia.html'},
+    {n:'Regadera de Mano Premium',c:'Grifería',u:'griferia.html'},
+    {n:'Monomando Cromo',c:'Grifería',u:'griferia.html'},
+    {n:'Mezcladora Cocina Helvex',c:'Grifería',u:'griferia.html'},
+    {n:'Kit Ducha Completo',c:'Grifería',u:'griferia.html'},
+    {n:'Lavabo Suspendido Blanco Mate',c:'Baños',u:'banos.html'},
+    {n:'Tina Ovalada Exenta',c:'Baños',u:'banos.html'},
+    {n:'Inodoro Alargado Descarga Dual',c:'Baños',u:'banos.html'},
+    {n:'Porcelanato Cemento Gris 60×60',c:'Pisos',u:'pisos.html'},
+    {n:'Porcelanato Madera Roble',c:'Pisos',u:'pisos.html'},
+    {n:'Loseta Antiderrapante Exterior',c:'Pisos',u:'pisos.html'},
+    {n:'Fregadero Acero Inoxidable',c:'Cocina',u:'cocina.html'},
+    {n:'Campana Extractora',c:'Cocina',u:'cocina.html'},
+    {n:'Tarja Doble',c:'Cocina',u:'cocina.html'},
+  ];
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-      navbar.classList.add('scrolled');
-      navLogo.style.color = '#1a1a1a';
-      navLinks.forEach(l => { l.style.color = '#374151'; });
-    } else {
-      navbar.classList.remove('scrolled');
-      navLogo.style.color = '#fff';
-      navLinks.forEach(l => { l.style.color = 'rgba(255,255,255,0.9)'; });
-    }
+  const inp = document.getElementById('search-input');
+  const drop = document.getElementById('search-dropdown');
+  const clrBtn = document.getElementById('clear-btn');
+
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    clrBtn.style.display = q ? 'block' : 'none';
+    if (!q) { drop.classList.remove('show'); return; }
+    const found = catalogoProductos.filter(p => p.n.toLowerCase().includes(q) || p.c.toLowerCase().includes(q));
+    drop.innerHTML = found.length === 0
+      ? `<div class="s-item"><span style="color:#9ca3af;font-size:0.82rem;">Sin resultados para "${q}"</span></div>`
+      : found.map(p => `<a href="${p.u}" class="s-item"><span class="material-symbols-outlined" style="color:var(--red);font-size:1rem;">search</span><div><div style="font-size:0.83rem;font-weight:500;">${p.n}</div><div class="s-cat">${p.c}</div></div></a>`).join('');
+    drop.classList.add('show');
   });
 
-  // ── Mobile menu ──
-  document.getElementById('hamburger').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.add('open');
-  });
-  document.getElementById('close-menu').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.remove('open');
-  });
-  function closeMobileMenu() {
-    document.getElementById('mobile-menu').classList.remove('open');
-  }
+  function clearSearch() { inp.value=''; drop.classList.remove('show'); clrBtn.style.display='none'; inp.focus(); }
+  document.addEventListener('click', e => { if(!e.target.closest('#search-input')&&!e.target.closest('#search-dropdown')) drop.classList.remove('show'); });
 
-  // ── FAQ toggle ──
-  function toggleFaq(btn) {
-    const body = btn.nextElementSibling;
-    const isOpen = body.classList.contains('open');
-    // close all
-    document.querySelectorAll('.faq-body').forEach(b => b.classList.remove('open'));
-    document.querySelectorAll('.faq-btn').forEach(b => b.classList.remove('open'));
-    if (!isOpen) {
-      body.classList.add('open');
-      btn.classList.add('open');
-    }
-  }
+  // MOBILE MENU
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mob-menu').classList.add('open'));
+  document.getElementById('close-mob').addEventListener('click', () => document.getElementById('mob-menu').classList.remove('open'));
+  function closeMob() { document.getElementById('mob-menu').classList.remove('open'); }
 
-  // ── Scroll animations ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // ── WhatsApp form ──
-  function sendWhatsApp() {
-    const name = document.getElementById('f-name').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    const msg = document.getElementById('f-message').value.trim();
-    if (!name) { alert('Por favor ingresa tu nombre.'); return; }
-    const text = `Hola MAYESA, mi nombre es ${name}${phone ? ', mi teléfono es ' + phone : ''}. ${msg || 'Quiero información sobre sus productos.'}`;
-    window.open('https://wa.me/5217411306781?text=' + encodeURIComponent(text), '_blank');
-  }
-
-  // ── Smooth scroll for nav links ──
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+  // ANIMACIONES
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
