@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto — MAYESA Centro Azulejero</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --red:#b3282b; --red-dark:#8f1f22; --navy:#1a237e; --charcoal:#1a1a1a; --light:#f9f7f4; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'DM Sans',sans-serif; background:#fff; color:var(--charcoal); overflow-x:hidden; }
+
+    #top-bar { background:var(--navy); padding:0.4rem 3rem; display:flex; justify-content:flex-end; align-items:center; gap:1.5rem; }
+    #top-bar a { color:rgba(255,255,255,0.8); font-size:0.72rem; text-decoration:none; transition:color 0.2s; }
+    #top-bar a:hover { color:#fff; }
+
+    #navbar { background:#fff; box-shadow:0 2px 16px rgba(0,0,0,0.07); position:sticky; top:0; z-index:100; }
+    .nav-inner { max-width:1280px; margin:0 auto; padding:0.85rem 3rem; display:flex; align-items:center; gap:1.5rem; }
+    .logo-wrap { text-decoration:none; flex-shrink:0; display:flex; flex-direction:column; align-items:center; }
+    .logo-text { font-size:1.7rem; font-weight:900; line-height:1; }
+    .logo-sub { font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--navy); margin-top:1px; }
+
+    #product-nav { background:var(--red); position:sticky; top:63px; z-index:99; }
+    .pnav-inner { max-width:1280px; margin:0 auto; padding:0 3rem; display:flex; align-items:center; overflow-x:auto; }
+    .pnav-inner::-webkit-scrollbar { display:none; }
+    .pnav-link { color:rgba(255,255,255,0.85); font-size:0.78rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; padding:0.85rem 1.2rem; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; transition:all 0.2s; display:flex; align-items:center; gap:0.4rem; }
+    .pnav-link:hover, .pnav-link.active { color:#fff; border-bottom-color:#fff; background:rgba(255,255,255,0.1); }
+    .pnav-link .material-symbols-outlined { font-size:1rem; }
+
+    /* HERO */
+    .contact-hero { background:linear-gradient(135deg,var(--navy) 0%,#283593 100%); position:relative; overflow:hidden; padding:4rem 3rem; text-align:center; }
+    .contact-hero::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&q=80') center/cover no-repeat; opacity:0.1; }
+    .contact-hero-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+    .sec-label { display:inline-block; font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.8); border:1.5px solid rgba(255,255,255,0.3); border-radius:999px; padding:0.25rem 0.9rem; background:rgba(255,255,255,0.08); }
+
+    /* FORM */
+    .form-input { width:100%; border:1.5px solid #e5e7eb; border-radius:10px; padding:0.75rem 1rem; font-size:0.9rem; outline:none; transition:border-color 0.2s, box-shadow 0.2s; font-family:'DM Sans',sans-serif; background:#fff; }
+    .form-input:focus { border-color:var(--red); box-shadow:0 0 0 3px rgba(179,40,43,0.1); }
+    .form-label { display:block; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:#6b7280; margin-bottom:0.5rem; }
+
+    /* SUCURSALES */
+    .suc-card { background:#fff; border-radius:16px; border:1.5px solid #e5e7eb; overflow:hidden; transition:transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+    .suc-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,0.1); border-color:var(--red); }
+    .map-ph { width:100%; height:140px; background:linear-gradient(135deg,#e8e4df,#d4cfc9); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    .map-ph::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(0,0,0,0.04) 28px,rgba(0,0,0,0.04) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(0,0,0,0.04) 28px,rgba(0,0,0,0.04) 29px); }
+    .suc-num { width:22px; height:22px; border-radius:50%; background:var(--red); display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; color:#fff; flex-shrink:0; }
+
+    /* BUTTONS */
+    .btn-red { background:var(--red); color:#fff; font-weight:600; border:none; cursor:pointer; transition:all 0.2s; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; }
+    .btn-red:hover { background:var(--red-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(179,40,43,0.3); }
+    .btn-navy { background:var(--navy); color:#fff; font-weight:600; border:none; cursor:pointer; transition:all 0.2s; text-decoration:none; display:inline-flex; align-items:center; }
+    .btn-navy:hover { background:#283593; transform:translateY(-2px); }
+    .btn-wa { background:#25d366; color:#fff; font-weight:600; transition:all 0.2s; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; border:none; cursor:pointer; }
+    .btn-wa:hover { background:#1ebe5d; transform:translateY(-2px); box-shadow:0 6px 18px rgba(37,211,102,0.35); }
+
+    /* ANIMATIONS */
+    .fade-up { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+
+    /* MOBILE */
+    #mob-menu { display:none; }
+    #mob-menu.open { display:flex; }
+
+    /* WA FLOAT */
+    #wa-float { position:fixed; bottom:28px; right:28px; z-index:400; width:60px; height:60px; background:#25d366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(37,211,102,0.45); text-decoration:none; animation:pw 2.5s infinite; }
+    #wa-float:hover { transform:scale(1.1); }
+    @keyframes pw { 0%,100%{box-shadow:0 8px 24px rgba(37,211,102,0.45)} 50%{box-shadow:0 8px 40px rgba(37,211,102,0.7)} }
+
+    @media(max-width:640px){ .nav-inner{padding:0.75rem 1.25rem;} .pnav-inner{padding:0 1rem;} #top-bar{padding:0.4rem 1rem;} .contact-hero{padding:3rem 1.25rem;} }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="top-bar">
+  <a href="tel:+527441234567">📞 (744) 123 4567</a>
+  <a href="https://wa.me/5217411306781" target="_blank">💬 WhatsApp</a>
+  <a href="mailto:contacto@mayesa.com">✉️ contacto@mayesa.com</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo-wrap">
+      <div class="logo-text"><span style="color:var(--red);">M</span><span style="color:var(--navy);font-size:1rem;vertical-align:super;margin:0 1px;">▲</span><span style="color:var(--red);">YESA</span></div>
+      <span class="logo-sub">Centro Azulejero</span>
+    </a>
+    <div class="hidden md:flex items-center gap-3 ml-auto flex-shrink-0">
+      <a href="index.html" class="btn-navy px-5 py-2.5 rounded-full text-sm">Inicio</a>
+      <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank" class="btn-wa px-5 py-2.5 rounded-full text-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <button id="hamburger" class="md:hidden ml-auto" style="background:none;border:none;cursor:pointer;">
+      <span class="material-symbols-outlined" style="font-size:1.8rem;color:var(--charcoal);">menu</span>
+    </button>
+  </div>
+</nav>
+
+<!-- PRODUCT NAV -->
+<div id="product-nav">
+  <div class="pnav-inner">
+    <a href="griferia.html"  class="pnav-link"><span class="material-symbols-outlined">shower</span>Grifería</a>
+    <a href="banos.html"     class="pnav-link"><span class="material-symbols-outlined">bathtub</span>Baños</a>
+    <a href="pisos.html"     class="pnav-link"><span class="material-symbols-outlined">grid_on</span>Pisos</a>
+    <a href="cocina.html"    class="pnav-link"><span class="material-symbols-outlined">countertops</span>Cocina</a>
+    <a href="azulejos.html"  class="pnav-link"><span class="material-symbols-outlined">texture</span>Azulejos & Adhesivos</a>
+    <a href="contacto.html"  class="pnav-link active" style="margin-left:auto;"><span class="material-symbols-outlined">call</span>Contacto</a>
+  </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu" class="fixed inset-0 z-[200] flex-col items-center justify-center gap-6 text-center" style="background:rgba(20,20,20,0.97);">
+  <button id="close-mob" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;">✕</button>
+  <a href="griferia.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Grifería</a>
+  <a href="banos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Baños</a>
+  <a href="pisos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Pisos</a>
+  <a href="cocina.html"   onclick="closeMob()" class="text-white text-xl font-semibold block">Cocina</a>
+  <a href="azulejos.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Azulejos & Adhesivos</a>
+  <a href="contacto.html" onclick="closeMob()" style="color:var(--red);" class="text-xl font-semibold block">Contacto</a>
+  <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-base mt-4">WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<div class="contact-hero">
+  <div class="contact-hero-inner fade-up">
+    <div class="sec-label">Estamos para servirte</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;color:#fff;margin:0.75rem 0 1rem;">¿En qué podemos<br/>ayudarte?</h1>
+    <p style="color:rgba(255,255,255,0.8);font-size:1rem;max-width:480px;margin:0 auto;">Escríbenos, llámanos o visítanos en cualquiera de nuestras 5 sucursales en Guerrero.</p>
+  </div>
+</div>
+
+<!-- CONTACTO PRINCIPAL -->
+<section style="padding:5rem 3rem;background:var(--light);">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;" class="md:grid-cols-2">
+
+    <!-- FORMULARIO -->
+    <div class="fade-up" style="background:#fff;border-radius:20px;padding:2.5rem;box-shadow:0 4px 24px rgba(0,0,0,0.07);">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;margin-bottom:0.5rem;">Envíanos un mensaje</h2>
+      <p style="color:#6b7280;font-size:0.88rem;margin-bottom:2rem;">Un asesor te contactará a la brevedad por WhatsApp.</p>
+
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div>
+          <label class="form-label" for="f-nombre">Nombre completo</label>
+          <input class="form-input" id="f-nombre" type="text" placeholder="Tu nombre completo"/>
+        </div>
+        <div>
+          <label class="form-label" for="f-tel">Teléfono / WhatsApp</label>
+          <input class="form-input" id="f-tel" type="tel" placeholder="Tu número de contacto"/>
+        </div>
+        <div>
+          <label class="form-label" for="f-ciudad">Ciudad</label>
+          <select class="form-input" id="f-ciudad">
+            <option value="">Selecciona tu ciudad</option>
+            <option>Chilpancingo</option>
+            <option>Acapulco</option>
+            <option>Ometepec</option>
+            <option>Zihuatanejo</option>
+            <option>Taxco</option>
+            <option>Otra ciudad</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" for="f-producto">¿Qué producto te interesa?</label>
+          <select class="form-input" id="f-producto">
+            <option value="">Selecciona una categoría</option>
+            <option>Grifería / Regaderas</option>
+            <option>Baños / Sanitarios</option>
+            <option>Pisos / Porcelanato</option>
+            <option>Cocina</option>
+            <option>Azulejos & Adhesivos</option>
+            <option>Varios productos</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" for="f-mensaje">Mensaje</label>
+          <textarea class="form-input" id="f-mensaje" rows="4" placeholder="Cuéntanos sobre tu proyecto o lo que necesitas..." style="resize:none;"></textarea>
+        </div>
+        <button onclick="enviarWA()" class="btn-wa w-full justify-center py-3.5 rounded-xl text-sm" style="text-transform:uppercase;letter-spacing:0.06em;font-size:0.85rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar por WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <!-- INFO CONTACTO -->
+    <div class="fade-up" style="display:flex;flex-direction:column;gap:1.5rem;">
+      <div style="background:#fff;border-radius:16px;padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,0.07);">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;">Información de contacto</h3>
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#fdf0f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="color:var(--red);font-size:1.2rem;">call</span>
+            </div>
+            <div>
+              <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;margin-bottom:0.2rem;">Teléfono</p>
+              <a href="tel:+527441234567" style="font-weight:600;color:var(--charcoal);text-decoration:none;font-size:0.95rem;">+52 (744) 123 4567</a>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div>
+              <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;margin-bottom:0.2rem;">WhatsApp</p>
+              <a href="https://wa.me/5217411306781" target="_blank" style="font-weight:600;color:#25d366;text-decoration:none;font-size:0.95rem;">+52 (741) 130 6781</a>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#fdf0f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="color:var(--red);font-size:1.2rem;">mail</span>
+            </div>
+            <div>
+              <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;margin-bottom:0.2rem;">Correo electrónico</p>
+              <a href="mailto:contacto@mayesa.com" style="font-weight:600;color:var(--charcoal);text-decoration:none;font-size:0.95rem;">contacto@mayesa.com</a>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#fdf0f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="color:var(--red);font-size:1.2rem;">schedule</span>
+            </div>
+            <div>
+              <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;margin-bottom:0.2rem;">Horario general</p>
+              <p style="font-weight:600;font-size:0.95rem;">Lun – Sáb: 9:00am – 7:00pm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA WhatsApp grande -->
+      <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información%20sobre%20sus%20productos" target="_blank"
+         class="btn-wa justify-center py-4 rounded-2xl" style="width:100%;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.06em;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chatear ahora por WhatsApp
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5 SUCURSALES -->
+<section style="padding:5rem 3rem;background:#fff;">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="text-center fade-up" style="margin-bottom:3rem;">
+      <div class="sec-label" style="color:var(--red);border-color:var(--red);background:transparent;">Visítanos</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-top:0.6rem;">Nuestras 5 Sucursales</h2>
+      <p style="color:#6b7280;margin-top:0.75rem;font-size:0.9rem;">Showroom completo en cada ubicación. Ven a ver y tocar los materiales antes de comprar.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.25rem;">
+
+      <!-- 1 Chilpancingo -->
+      <div class="suc-card fade-up">
+        <div class="map-ph">
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(179,40,43,0.4);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span>
+            </div>
+            <span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Chilpancingo</span>
+          </div>
+        </div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;">
+            <div class="suc-num">1</div>
+            <h4 style="font-weight:700;font-size:0.9rem;">Sucursal Centro</h4>
+          </div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Av. Insurgentes 145, Chilpancingo</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 7pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (747) 472 0011</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Chilpancingo" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 2 Acapulco -->
+      <div class="suc-card fade-up" style="transition-delay:0.1s">
+        <div class="map-ph">
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(179,40,43,0.4);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span>
+            </div>
+            <span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Acapulco</span>
+          </div>
+        </div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;">
+            <div class="suc-num">2</div>
+            <h4 style="font-weight:700;font-size:0.9rem;">Sucursal Acapulco</h4>
+          </div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Blvd. de las Naciones 890</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 7pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (744) 485 3322</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Acapulco" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 3 Ometepec -->
+      <div class="suc-card fade-up" style="transition-delay:0.2s">
+        <div class="map-ph">
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(179,40,43,0.4);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span>
+            </div>
+            <span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Ometepec</span>
+          </div>
+        </div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;">
+            <div class="suc-num">3</div>
+            <h4 style="font-weight:700;font-size:0.9rem;">Sucursal Ometepec</h4>
+          </div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Calle Morelos 34, Ometepec</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 6pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (741) 413 0055</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Ometepec" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 Zihuatanejo -->
+      <div class="suc-card fade-up" style="transition-delay:0.3s">
+        <div class="map-ph">
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(179,40,43,0.4);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span>
+            </div>
+            <span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Zihuatanejo</span>
+          </div>
+        </div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;">
+            <div class="suc-num">4</div>
+            <h4 style="font-weight:700;font-size:0.9rem;">Sucursal Zihuatanejo</h4>
+          </div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Paseo del Pescador 22</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 6pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (755) 554 8877</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Zihuatanejo" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 5 Taxco -->
+      <div class="suc-card fade-up" style="transition-delay:0.4s">
+        <div class="map-ph">
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(179,40,43,0.4);">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:1.1rem;">location_on</span>
+            </div>
+            <span style="font-size:0.68rem;font-weight:600;background:rgba(255,255,255,0.9);padding:0.15rem 0.5rem;border-radius:999px;">Taxco</span>
+          </div>
+        </div>
+        <div style="padding:1.1rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;">
+            <div class="suc-num">5</div>
+            <h4 style="font-weight:700;font-size:0.9rem;">Sucursal Taxco</h4>
+          </div>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">📍 Av. de los Plateros 118, Taxco</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.3rem;">🕐 Lun–Sáb: 9am – 6pm</p>
+          <p style="color:#6b7280;font-size:0.75rem;margin-bottom:0.9rem;">📞 (762) 622 1199</p>
+          <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20visitar%20la%20sucursal%20de%20Taxco" target="_blank" class="btn-wa justify-center py-2 rounded-full text-xs" style="width:100%;font-size:0.75rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar visita
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:2.5rem 3rem;background:var(--charcoal);">
+  <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;">
+    <div>
+      <div style="font-size:1.3rem;font-weight:900;color:#fff;"><span style="color:var(--red);">M</span><span style="color:#818cf8;font-size:0.85rem;vertical-align:super;">▲</span><span style="color:var(--red);">YESA</span></div>
+      <p style="color:#6b7280;font-size:0.7rem;margin-top:0.2rem;">Centro Azulejero · Guerrero, México</p>
+      <p style="color:#4b5563;font-size:0.68rem;margin-top:0.15rem;">© 2025 MAYESA. Todos los derechos reservados.</p>
+    </div>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+      <a href="index.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Inicio</a>
+      <a href="griferia.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Grifería</a>
+      <a href="banos.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Baños</a>
+      <a href="pisos.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Pisos</a>
+      <a href="cocina.html"   style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Cocina</a>
+      <a href="azulejos.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Azulejos</a>
+      <a href="contacto.html" style="color:#fff;font-size:0.8rem;text-decoration:none;">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<a id="wa-float" href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información" target="_blank" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mob-menu').classList.add('open'));
+  document.getElementById('close-mob').addEventListener('click',()=>document.getElementById('mob-menu').classList.remove('open'));
+  function closeMob(){document.getElementById('mob-menu').classList.remove('open');}
+
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+  function enviarWA(){
+    const nombre=document.getElementById('f-nombre').value.trim();
+    const tel=document.getElementById('f-tel').value.trim();
+    const ciudad=document.getElementById('f-ciudad').value;
+    const producto=document.getElementById('f-producto').value;
+    const mensaje=document.getElementById('f-mensaje').value.trim();
+    if(!nombre){ alert('Por favor ingresa tu nombre.'); return; }
+    let txt=`Hola MAYESA, mi nombre es ${nombre}`;
+    if(tel) txt+=`, mi teléfono es ${tel}`;
+    if(ciudad) txt+=`. Soy de ${ciudad}`;
+    if(producto) txt+=`. Me interesa: ${producto}`;
+    if(mensaje) txt+=`. ${mensaje}`;
+    txt+='. ¿Me pueden dar información?';
+    window.open('https://wa.me/5217411306781?text='+encodeURIComponent(txt),'_blank');
+  }
+</script>
+</body>
+</html>
