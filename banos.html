@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baños — MAYESA Centro Azulejero</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --red:#b3282b; --red-dark:#8f1f22; --navy:#1a237e; --charcoal:#1a1a1a; --light:#f9f7f4; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'DM Sans',sans-serif; background:#fff; color:var(--charcoal); overflow-x:hidden; }
+
+    #top-bar { background:var(--navy); padding:0.4rem 3rem; display:flex; justify-content:flex-end; align-items:center; gap:1.5rem; }
+    #top-bar a { color:rgba(255,255,255,0.8); font-size:0.72rem; text-decoration:none; transition:color 0.2s; }
+    #top-bar a:hover { color:#fff; }
+
+    #navbar { background:#fff; box-shadow:0 2px 16px rgba(0,0,0,0.07); position:sticky; top:0; z-index:100; }
+    .nav-inner { max-width:1280px; margin:0 auto; padding:0.85rem 3rem; display:flex; align-items:center; gap:1.5rem; }
+    .logo-wrap { text-decoration:none; flex-shrink:0; display:flex; flex-direction:column; align-items:center; }
+    .logo-text { font-size:1.7rem; font-weight:900; line-height:1; }
+    .logo-sub { font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--navy); margin-top:1px; }
+
+    #product-nav { background:var(--red); position:sticky; top:63px; z-index:99; }
+    .pnav-inner { max-width:1280px; margin:0 auto; padding:0 3rem; display:flex; align-items:center; overflow-x:auto; }
+    .pnav-inner::-webkit-scrollbar { display:none; }
+    .pnav-link { color:rgba(255,255,255,0.85); font-size:0.78rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; padding:0.85rem 1.2rem; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; transition:all 0.2s; display:flex; align-items:center; gap:0.4rem; }
+    .pnav-link:hover, .pnav-link.active { color:#fff; border-bottom-color:#fff; background:rgba(255,255,255,0.1); }
+    .pnav-link .material-symbols-outlined { font-size:1rem; }
+
+    .cat-hero { background:linear-gradient(135deg,#1a237e 0%,#283593 100%); position:relative; overflow:hidden; padding:3rem; }
+    .cat-hero::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&q=80') center/cover no-repeat; opacity:0.15; }
+    .cat-hero-inner { position:relative; z-index:1; max-width:1280px; margin:0 auto; }
+    .sec-label { display:inline-block; font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.8); border:1.5px solid rgba(255,255,255,0.3); border-radius:999px; padding:0.25rem 0.9rem; background:rgba(255,255,255,0.08); }
+
+    .page-layout { max-width:1280px; margin:0 auto; padding:2.5rem 3rem; display:grid; grid-template-columns:260px 1fr; gap:2rem; }
+    @media(max-width:900px){ .page-layout { grid-template-columns:1fr; } #sidebar { display:none; } }
+
+    #sidebar { position:sticky; top:130px; align-self:start; }
+    .filter-box { background:#fff; border:1.5px solid #e5e7eb; border-radius:14px; padding:1.5rem; margin-bottom:1.25rem; }
+    .filter-title { font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--charcoal); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
+    .filter-title .material-symbols-outlined { font-size:1rem; color:var(--red); }
+    .filter-option { display:flex; align-items:center; gap:0.6rem; padding:0.35rem 0; cursor:pointer; }
+    .filter-option input[type=checkbox] { accent-color:var(--red); width:15px; height:15px; cursor:pointer; }
+    .filter-option label { font-size:0.85rem; cursor:pointer; color:#374151; transition:color 0.2s; }
+    .filter-option:hover label { color:var(--red); }
+    .price-inputs { display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem; }
+    .price-inputs input { flex:1; border:1.5px solid #e5e7eb; border-radius:8px; padding:0.4rem 0.6rem; font-size:0.82rem; outline:none; transition:border-color 0.2s; }
+    .price-inputs input:focus { border-color:var(--red); }
+    .btn-filter { background:var(--red); color:#fff; border:none; border-radius:8px; padding:0.6rem 1rem; font-size:0.82rem; font-weight:600; cursor:pointer; width:100%; transition:all 0.2s; }
+    .btn-filter:hover { background:var(--red-dark); }
+    .btn-clear { background:none; color:#6b7280; border:1.5px solid #e5e7eb; border-radius:8px; padding:0.5rem 1rem; font-size:0.78rem; cursor:pointer; width:100%; margin-top:0.5rem; transition:all 0.2s; }
+    .btn-clear:hover { border-color:var(--red); color:var(--red); }
+
+    .products-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:0.75rem; }
+    .results-count { font-size:0.85rem; color:#6b7280; }
+    .results-count span { font-weight:700; color:var(--charcoal); }
+    .sort-select { border:1.5px solid #e5e7eb; border-radius:8px; padding:0.4rem 0.75rem; font-size:0.82rem; outline:none; cursor:pointer; font-family:'DM Sans',sans-serif; }
+    .sort-select:focus { border-color:var(--red); }
+
+    .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1.25rem; }
+    .product-card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.07); transition:transform 0.3s,box-shadow 0.3s; border:1.5px solid #f3f4f6; }
+    .product-card:hover { transform:translateY(-5px); box-shadow:0 12px 32px rgba(0,0,0,0.12); border-color:#e5e7eb; }
+    .product-card img { transition:transform 0.5s; width:100%; height:100%; object-fit:cover; }
+    .product-card:hover img { transform:scale(1.05); }
+    .card-badge { position:absolute; top:0.6rem; left:0.6rem; font-size:0.62rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:0.18rem 0.55rem; border-radius:999px; }
+    .badge-hot { background:#fee2e2; color:#991b1b; }
+    .badge-new { background:#fef3c7; color:#92400e; }
+    .badge-sale { background:var(--red); color:#fff; }
+
+    .cat-div { display:flex; align-items:center; gap:1rem; margin:2.5rem 0 1.25rem; }
+    .cat-div span { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; white-space:nowrap; }
+    .cat-div::before,.cat-div::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+    .cat-desc { font-size:0.85rem; color:#6b7280; margin-bottom:1.5rem; }
+
+    .btn-wa { background:#25d366; color:#fff; font-weight:600; transition:all 0.2s; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; border:none; cursor:pointer; }
+    .btn-wa:hover { background:#1ebe5d; transform:translateY(-2px); box-shadow:0 6px 18px rgba(37,211,102,0.35); }
+    .btn-navy { background:var(--navy); color:#fff; font-weight:600; border:none; cursor:pointer; transition:all 0.2s; text-decoration:none; display:inline-flex; align-items:center; }
+    .btn-navy:hover { background:#283593; transform:translateY(-2px); }
+
+    #no-results { display:none; text-align:center; padding:3rem; color:#9ca3af; }
+    #no-results .material-symbols-outlined { font-size:3rem; display:block; margin-bottom:1rem; }
+
+    #mob-menu { display:none; }
+    #mob-menu.open { display:flex; }
+
+    #wa-float { position:fixed; bottom:28px; right:28px; z-index:400; width:60px; height:60px; background:#25d366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(37,211,102,0.45); text-decoration:none; animation:pw 2.5s infinite; }
+    #wa-float:hover { transform:scale(1.1); }
+    @keyframes pw { 0%,100%{box-shadow:0 8px 24px rgba(37,211,102,0.45)} 50%{box-shadow:0 8px 40px rgba(37,211,102,0.7)} }
+
+    .fade-up { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+
+    @media(max-width:640px){ .nav-inner{padding:0.75rem 1.25rem;} .pnav-inner{padding:0 1rem;} #top-bar{padding:0.4rem 1rem;} .cat-hero{padding:2rem 1.25rem;} .page-layout{padding:1.5rem 1.25rem;} }
+
+    /* WA SVG reutilizable */
+    .wa-icon { width:12px; height:12px; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="top-bar">
+  <a href="contacto.html">📍 5 Sucursales en Guerrero</a>
+  <a href="tel:+527441234567" class="hidden md:inline">📞 (744) 123 4567</a>
+  <a href="https://wa.me/5217411306781" target="_blank">💬 WhatsApp</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo-wrap">
+      <div class="logo-text"><span style="color:var(--red);">M</span><span style="color:var(--navy);font-size:1rem;vertical-align:super;margin:0 1px;">▲</span><span style="color:var(--red);">YESA</span></div>
+      <span class="logo-sub">Centro Azulejero</span>
+    </a>
+    <div class="hidden md:flex items-center gap-3 ml-auto flex-shrink-0">
+      <a href="contacto.html" class="btn-navy px-5 py-2.5 rounded-full text-sm">Contacto</a>
+      <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información%20sobre%20Baños" target="_blank" class="btn-wa px-5 py-2.5 rounded-full text-sm">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <button id="hamburger" class="md:hidden ml-auto" style="background:none;border:none;cursor:pointer;">
+      <span class="material-symbols-outlined" style="font-size:1.8rem;color:var(--charcoal);">menu</span>
+    </button>
+  </div>
+</nav>
+
+<!-- PRODUCT NAV -->
+<div id="product-nav">
+  <div class="pnav-inner">
+    <a href="griferia.html"  class="pnav-link"><span class="material-symbols-outlined">shower</span>Grifería</a>
+    <a href="banos.html"     class="pnav-link active"><span class="material-symbols-outlined">bathtub</span>Baños</a>
+    <a href="pisos.html"     class="pnav-link"><span class="material-symbols-outlined">grid_on</span>Pisos</a>
+    <a href="cocina.html"    class="pnav-link"><span class="material-symbols-outlined">countertops</span>Cocina</a>
+    <a href="azulejos.html"  class="pnav-link"><span class="material-symbols-outlined">texture</span>Azulejos & Adhesivos</a>
+    <a href="contacto.html"  class="pnav-link" style="margin-left:auto;"><span class="material-symbols-outlined">call</span>Contacto</a>
+  </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu" class="fixed inset-0 z-[200] flex-col items-center justify-center gap-6 text-center" style="background:rgba(20,20,20,0.97);">
+  <button id="close-mob" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;">✕</button>
+  <a href="griferia.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Grifería</a>
+  <a href="banos.html"    onclick="closeMob()" style="color:var(--red);" class="text-xl font-semibold block">Baños</a>
+  <a href="pisos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Pisos</a>
+  <a href="cocina.html"   onclick="closeMob()" class="text-white text-xl font-semibold block">Cocina</a>
+  <a href="azulejos.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Azulejos & Adhesivos</a>
+  <a href="contacto.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Contacto</a>
+  <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-base mt-4">WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<div class="cat-hero">
+  <div class="cat-hero-inner">
+    <div class="sec-label">Catálogo</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;margin:0.6rem 0 0.5rem;">Baños</h1>
+    <p style="color:rgba(255,255,255,0.8);font-size:0.95rem;max-width:500px;">Lavabos, tinas, inodoros, muebles y accesorios de lujo para crear el baño de tus sueños.</p>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="filter-box">
+      <div class="filter-title"><span class="material-symbols-outlined">sell</span>Marca</div>
+      <div class="filter-option"><input type="checkbox" id="m-helvex" value="helvex" onchange="applyFilters()"><label for="m-helvex">Helvex</label></div>
+      <div class="filter-option"><input type="checkbox" id="m-moen" value="moen" onchange="applyFilters()"><label for="m-moen">Moen</label></div>
+      <div class="filter-option"><input type="checkbox" id="m-urrea" value="urrea" onchange="applyFilters()"><label for="m-urrea">Urrea</label></div>
+      <div class="filter-option"><input type="checkbox" id="m-dica" value="dica" onchange="applyFilters()"><label for="m-dica">Dica</label></div>
+      <div class="filter-option"><input type="checkbox" id="m-interceramic" value="interceramic" onchange="applyFilters()"><label for="m-interceramic">Interceramic</label></div>
+    </div>
+
+    <div class="filter-box">
+      <div class="filter-title"><span class="material-symbols-outlined">palette</span>Material</div>
+      <div class="filter-option"><input type="checkbox" id="mat-ceramica" value="ceramica" onchange="applyFilters()"><label for="mat-ceramica">Cerámica</label></div>
+      <div class="filter-option"><input type="checkbox" id="mat-acrilico" value="acrilico" onchange="applyFilters()"><label for="mat-acrilico">Acrílico</label></div>
+      <div class="filter-option"><input type="checkbox" id="mat-porcelana" value="porcelana" onchange="applyFilters()"><label for="mat-porcelana">Porcelana</label></div>
+      <div class="filter-option"><input type="checkbox" id="mat-madera" value="madera" onchange="applyFilters()"><label for="mat-madera">Madera / MDF</label></div>
+    </div>
+
+    <div class="filter-box">
+      <div class="filter-title"><span class="material-symbols-outlined">payments</span>Precio (MXN)</div>
+      <div class="price-inputs">
+        <input type="number" id="price-min" placeholder="Mín" min="0"/>
+        <span style="color:#9ca3af;font-size:0.8rem;">—</span>
+        <input type="number" id="price-max" placeholder="Máx" min="0"/>
+      </div>
+      <button class="btn-filter" onclick="applyFilters()">Aplicar filtros</button>
+      <button class="btn-clear" onclick="clearFilters()">Limpiar filtros</button>
+    </div>
+
+    <div class="filter-box" style="background:linear-gradient(135deg,#25d366,#1ebe5d);border-color:#25d366;">
+      <p style="color:#fff;font-size:0.82rem;font-weight:600;margin-bottom:0.75rem;">¿Necesitas asesoría para tu baño?</p>
+      <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20necesito%20asesoría%20para%20elegir%20productos%20de%20baño" target="_blank"
+         style="background:#fff;color:#25d366;font-weight:700;font-size:0.8rem;padding:0.6rem 1rem;border-radius:8px;display:flex;align-items:center;gap:0.5rem;text-decoration:none;justify-content:center;">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Hablar con un asesor
+      </a>
+    </div>
+  </aside>
+
+  <!-- PRODUCTOS -->
+  <div>
+    <div class="products-header">
+      <p class="results-count">Mostrando <span id="count">12</span> productos</p>
+      <select class="sort-select" onchange="sortProducts(this.value)">
+        <option value="default">Ordenar por: Relevancia</option>
+        <option value="price-asc">Precio: menor a mayor</option>
+        <option value="price-desc">Precio: mayor a menor</option>
+        <option value="name-asc">Nombre: A–Z</option>
+      </select>
+    </div>
+
+    <div id="no-results">
+      <span class="material-symbols-outlined">search_off</span>
+      No se encontraron productos con esos filtros.<br/>
+      <button class="btn-clear" style="width:auto;margin-top:1rem;padding:0.5rem 1.5rem;" onclick="clearFilters()">Limpiar filtros</button>
+    </div>
+
+    <!-- LAVABOS -->
+    <div class="cat-div" id="div-lavabos"><span>Lavabos</span></div>
+    <p class="cat-desc" id="desc-lavabos">Diseños modernos y clásicos en cerámica y porcelana de alta calidad.</p>
+    <div class="products-grid" id="grid-lavabos">
+
+      <div class="product-card fade-up" data-marca="helvex" data-material="ceramica" data-precio="2400">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Lavabo Suspendido"/>
+          <span class="card-badge badge-hot">Popular</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Helvex</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Lavabo Suspendido</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Cerámica · Blanco mate · Flotante</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$2,400</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20Suspendido%20Helvex" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="interceramic" data-material="porcelana" data-precio="1850">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Lavabo Empotrar"/>
+          <span class="card-badge badge-new">Nuevo</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Interceramic</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Lavabo para Empotrar</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Porcelana · Blanco brillante</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,850</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20para%20Empotrar%20Interceramic" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="urrea" data-material="ceramica" data-precio="3200">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80" alt="Lavabo Pedestal"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Urrea</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Lavabo con Pedestal</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Cerámica · Diseño clásico</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$3,200</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20con%20Pedestal%20Urrea" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TINAS -->
+    <div class="cat-div" id="div-tinas"><span>Tinas de Baño</span></div>
+    <p class="cat-desc" id="desc-tinas">Tinas exentas y empotradas para transformar tu baño en un spa privado.</p>
+    <div class="products-grid" id="grid-tinas">
+
+      <div class="product-card fade-up" data-marca="moen" data-material="acrilico" data-precio="8900">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80" alt="Tina Ovalada"/>
+          <span class="card-badge badge-hot">Premium</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Moen</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Tina Ovalada Exenta</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Acrílico · Blanco brillante · Independiente</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$8,900</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Tina%20Ovalada%20Exenta%20Moen" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="urrea" data-material="acrilico" data-precio="5400">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1620626011761-996317702b88?w=600&q=80" alt="Tina Rectangular"/>
+          <span class="card-badge badge-sale">-15%</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Urrea</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Tina Rectangular Empotrada</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Acrílico · 1.50m · Blanco</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <span style="color:var(--red);font-weight:700;font-size:1rem;">$5,400</span>
+              <span style="color:#9ca3af;font-size:0.78rem;text-decoration:line-through;margin-left:0.4rem;">$6,350</span>
+            </div>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Tina%20Rectangular%20Urrea" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- INODOROS -->
+    <div class="cat-div" id="div-inodoros"><span>Inodoros</span></div>
+    <p class="cat-desc" id="desc-inodoros">Sanitarios de doble descarga, eficiencia hídrica y diseño moderno.</p>
+    <div class="products-grid" id="grid-inodoros">
+
+      <div class="product-card fade-up" data-marca="helvex" data-material="ceramica" data-precio="3200">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=600&q=80" alt="Inodoro"/>
+          <span class="card-badge badge-hot">Top ventas</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Helvex</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Inodoro Alargado Dual</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Cerámica · Descarga 4.8/3L</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$3,200</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Inodoro%20Alargado%20Dual%20Helvex" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="interceramic" data-material="porcelana" data-precio="4800">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=600&q=80" alt="Inodoro One Piece"/>
+          <span class="card-badge badge-new">Nuevo</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Interceramic</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Inodoro One Piece</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Porcelana · Diseño compacto</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$4,800</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Inodoro%20One%20Piece%20Interceramic" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="dica" data-material="ceramica" data-precio="2800">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Inodoro Suspendido"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Inodoro Suspendido</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Cerámica · Flotante · Moderno</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$2,800</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Inodoro%20Suspendido%20Dica" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MUEBLES DE BAÑO -->
+    <div class="cat-div" id="div-muebles"><span>Muebles de Baño</span></div>
+    <p class="cat-desc" id="desc-muebles">Tocadores, espejos y muebles para organizar y decorar tu baño.</p>
+    <div class="products-grid" id="grid-muebles">
+
+      <div class="product-card fade-up" data-marca="interceramic" data-material="madera" data-precio="6500">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1585909695284-32d2985ac9c0?w=600&q=80" alt="Mueble Baño"/>
+          <span class="card-badge badge-hot">Popular</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Interceramic</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Tocador con Lavabo 80cm</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">MDF · Wengué · Con espejo LED</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$6,500</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Tocador%20con%20Lavabo%2080cm" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="dica" data-material="madera" data-precio="3900">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="Gabinete Baño"/>
+          <span class="card-badge badge-sale">-10%</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Gabinete de Baño 60cm</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">MDF · Blanco · Con espejo</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <span style="color:var(--red);font-weight:700;font-size:1rem;">$3,900</span>
+              <span style="color:#9ca3af;font-size:0.78rem;text-decoration:line-through;margin-left:0.4rem;">$4,333</span>
+            </div>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Gabinete%20de%20Baño%2060cm%20Dica" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="padding:2.5rem 3rem;background:var(--charcoal);">
+  <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;">
+    <div>
+      <div style="font-size:1.3rem;font-weight:900;color:#fff;"><span style="color:var(--red);">M</span><span style="color:#818cf8;font-size:0.85rem;vertical-align:super;">▲</span><span style="color:var(--red);">YESA</span></div>
+      <p style="color:#6b7280;font-size:0.7rem;margin-top:0.2rem;">Centro Azulejero · Guerrero, México</p>
+      <p style="color:#4b5563;font-size:0.68rem;margin-top:0.15rem;">© 2025 MAYESA. Todos los derechos reservados.</p>
+    </div>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+      <a href="index.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Inicio</a>
+      <a href="griferia.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Grifería</a>
+      <a href="banos.html"    style="color:#fff;font-size:0.8rem;text-decoration:none;">Baños</a>
+      <a href="pisos.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Pisos</a>
+      <a href="cocina.html"   style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Cocina</a>
+      <a href="azulejos.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Azulejos</a>
+      <a href="contacto.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a id="wa-float" href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20quiero%20información%20sobre%20Baños" target="_blank" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mob-menu').classList.add('open'));
+  document.getElementById('close-mob').addEventListener('click',()=>document.getElementById('mob-menu').classList.remove('open'));
+  function closeMob(){document.getElementById('mob-menu').classList.remove('open');}
+
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+  const grids=['lavabos','tinas','inodoros','muebles'];
+
+  function applyFilters(){
+    const marcas=[...document.querySelectorAll('input[id^="m-"]:checked')].map(i=>i.value);
+    const mats=[...document.querySelectorAll('input[id^="mat-"]:checked')].map(i=>i.value);
+    const minP=parseFloat(document.getElementById('price-min').value)||0;
+    const maxP=parseFloat(document.getElementById('price-max').value)||Infinity;
+    let total=0;
+    document.querySelectorAll('.product-card').forEach(card=>{
+      const ok=(marcas.length===0||marcas.includes(card.dataset.marca))&&
+               (mats.length===0||mats.includes(card.dataset.material))&&
+               parseFloat(card.dataset.precio)>=minP&&
+               parseFloat(card.dataset.precio)<=maxP;
+      card.style.display=ok?'':'none';
+      if(ok)total++;
+    });
+    document.getElementById('count').textContent=total;
+    document.getElementById('no-results').style.display=total===0?'block':'none';
+    grids.forEach(g=>{
+      const grid=document.getElementById('grid-'+g);
+      const vis=[...grid.querySelectorAll('.product-card')].some(c=>c.style.display!=='none');
+      document.getElementById('div-'+g).style.display=vis?'':'none';
+      document.getElementById('desc-'+g).style.display=vis?'':'none';
+    });
+  }
+
+  function clearFilters(){
+    document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
+    document.getElementById('price-min').value='';
+    document.getElementById('price-max').value='';
+    document.querySelectorAll('.product-card').forEach(c=>c.style.display='');
+    document.getElementById('count').textContent=document.querySelectorAll('.product-card').length;
+    document.getElementById('no-results').style.display='none';
+    grids.forEach(g=>{
+      document.getElementById('div-'+g).style.display='';
+      document.getElementById('desc-'+g).style.display='';
+    });
+  }
+
+  function sortProducts(val){
+    grids.forEach(g=>{
+      const grid=document.getElementById('grid-'+g);
+      const cards=[...grid.querySelectorAll('.product-card')];
+      cards.sort((a,b)=>{
+        if(val==='price-asc') return parseFloat(a.dataset.precio)-parseFloat(b.dataset.precio);
+        if(val==='price-desc') return parseFloat(b.dataset.precio)-parseFloat(a.dataset.precio);
+        if(val==='name-asc') return a.querySelector('h4').textContent.localeCompare(b.querySelector('h4').textContent);
+        return 0;
+      });
+      cards.forEach(c=>grid.appendChild(c));
+    });
+  }
+
+  document.getElementById('count').textContent=document.querySelectorAll('.product-card').length;
+</script>
+</body>
+</html>
