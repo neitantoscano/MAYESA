@@ -144,24 +144,14 @@
 <!-- PRODUCT NAV -->
 <div id="product-nav">
   <div class="pnav-inner">
-    <a href="griferia.html"  class="pnav-link active"><span class="material-symbols-outlined">shower</span>Grifería</a>
-    <a href="banos.html"     class="pnav-link"><span class="material-symbols-outlined">bathtub</span>Baños</a>
-    <a href="pisos.html"     class="pnav-link"><span class="material-symbols-outlined">grid_on</span>Pisos</a>
-    <a href="cocina.html"    class="pnav-link"><span class="material-symbols-outlined">countertops</span>Cocina</a>
-    <a href="azulejos.html"  class="pnav-link"><span class="material-symbols-outlined">texture</span>Azulejos & Adhesivos</a>
-    <a href="contacto.html"  class="pnav-link" style="margin-left:auto;"><span class="material-symbols-outlined">call</span>Contacto</a>
-  </div>
-</div>
-
-<!-- MOBILE MENU -->
-<div id="mob-menu" class="fixed inset-0 z-[200] flex-col items-center justify-center gap-6 text-center" style="background:rgba(20,20,20,0.97);">
-  <button id="close-mob" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;">✕</button>
-  <a href="griferia.html" onclick="closeMob()" style="color:var(--red);" class="text-xl font-semibold block">Grifería</a>
-  <a href="banos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Baños</a>
-  <a href="pisos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Pisos</a>
-  <a href="cocina.html"   onclick="closeMob()" class="text-white text-xl font-semibold block">Cocina</a>
-  <a href="azulejos.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Azulejos & Adhesivos</a>
-  <a href="contacto.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Contacto</a>
+    <a href="griferia.html"  onclick="closeMob()" style="color:var(--red);" class="text-xl font-semibold block">Grifería</a>
+  <a href="banos.html"     onclick="closeMob()" class="text-white text-xl font-semibold block">Baños</a>
+  <a href="pisos.html"     onclick="closeMob()" class="text-white text-xl font-semibold block">Pisos</a>
+  <a href="cocina.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Cocina</a>
+  <a href="azulejos.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Azulejos</a>
+  <a href="adhesivos.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Adhesivos</a>
+  <a href="canteras.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Canteras & Piedras</a>
+  <a href="contacto.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Contacto</a>
   <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-base mt-4">WhatsApp</a>
 </div>
 
@@ -205,9 +195,7 @@
       <div class="price-range">
         <div class="price-inputs">
           <input type="number" id="price-min" placeholder="Mín" min="0"/>
-          <span style="color:#9ca3af;font-size:0.8rem;">—</span>
-          <input type="number" id="price-max" placeholder="Máx" min="0"/>
-        </div>
+          </div>
         <button class="btn-filter" onclick="applyFilters()">Aplicar filtros</button>
         <button class="btn-clear" onclick="clearFilters()">Limpiar filtros</button>
       </div>
@@ -446,13 +434,15 @@
       <p style="color:#4b5563;font-size:0.68rem;margin-top:0.15rem;">© 2025 MAYESA. Todos los derechos reservados.</p>
     </div>
     <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-      <a href="index.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Inicio</a>
-      <a href="griferia.html" style="color:#fff;font-size:0.8rem;text-decoration:none;">Grifería</a>
-      <a href="banos.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Baños</a>
-      <a href="pisos.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Pisos</a>
-      <a href="cocina.html"   style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Cocina</a>
-      <a href="azulejos.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Azulejos</a>
-      <a href="contacto.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Contacto</a>
+      <a href="index.html"     style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Inicio</a>
+      <a href="griferia.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Grifería</a>
+      <a href="banos.html"     style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Baños</a>
+      <a href="pisos.html"     style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Pisos</a>
+      <a href="cocina.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Cocina</a>
+      <a href="azulejos.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Azulejos</a>
+      <a href="adhesivos.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Adhesivos</a>
+      <a href="canteras.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Canteras & Piedras</a>
+      <a href="contacto.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Contacto</a>
     </div>
   </div>
 </footer>
@@ -479,8 +469,7 @@
     const marcas=[...document.querySelectorAll('input[id^="m-"]:checked')].map(i=>i.value);
     const acabados=[...document.querySelectorAll('input[id^="a-"]:checked')].map(i=>i.value);
     const minP=parseFloat(document.getElementById('price-min').value)||0;
-    const maxP=parseFloat(document.getElementById('price-max').value)||Infinity;
-    let visible=0;
+        let visible=0;
     getAllCards().forEach(card=>{
       const m=card.dataset.marca;
       const a=card.dataset.acabado;
@@ -505,7 +494,6 @@
   function clearFilters(){
     document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
     document.getElementById('price-min').value='';
-    document.getElementById('price-max').value='';
     getAllCards().forEach(c=>c.style.display='');
     document.getElementById('count').textContent=document.querySelectorAll('.product-card').length;
     document.getElementById('no-results').style.display='none';
