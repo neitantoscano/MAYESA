@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Azulejos & Adhesivos — MAYESA Centro Azulejero</title>
+  <title>Azulejos — MAYESA Centro Azulejero</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
@@ -130,7 +130,9 @@
     <a href="banos.html"     class="pnav-link"><span class="material-symbols-outlined">bathtub</span>Baños</a>
     <a href="pisos.html"     class="pnav-link"><span class="material-symbols-outlined">grid_on</span>Pisos</a>
     <a href="cocina.html"    class="pnav-link"><span class="material-symbols-outlined">countertops</span>Cocina</a>
-    <a href="azulejos.html"  class="pnav-link active"><span class="material-symbols-outlined">texture</span>Azulejos & Adhesivos</a>
+    <a href="azulejos.html"  class="pnav-link active"><span class="material-symbols-outlined">texture</span>Azulejos</a>
+    <a href="adhesivos.html" class="pnav-link"><span class="material-symbols-outlined">water_drop</span>Adhesivos</a>
+    <a href="canteras.html"  class="pnav-link"><span class="material-symbols-outlined">landscape</span>Canteras & Piedras</a>
     <a href="contacto.html"  class="pnav-link" style="margin-left:auto;"><span class="material-symbols-outlined">call</span>Contacto</a>
   </div>
 </div>
@@ -142,8 +144,10 @@
   <a href="banos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Baños</a>
   <a href="pisos.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Pisos</a>
   <a href="cocina.html"   onclick="closeMob()" class="text-white text-xl font-semibold block">Cocina</a>
-  <a href="azulejos.html" onclick="closeMob()" style="color:var(--red);" class="text-xl font-semibold block">Azulejos & Adhesivos</a>
-  <a href="contacto.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Contacto</a>
+  <a href="azulejos.html"  onclick="closeMob()" style="color:var(--red);" class="text-xl font-semibold block">Azulejos</a>
+  <a href="adhesivos.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Adhesivos</a>
+  <a href="canteras.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Canteras & Piedras</a>
+  <a href="contacto.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Contacto</a>
   <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-base mt-4">WhatsApp</a>
 </div>
 
@@ -151,8 +155,8 @@
 <div class="cat-hero">
   <div class="cat-hero-inner">
     <div class="sec-label">Catálogo</div>
-    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;margin:0.6rem 0 0.5rem;">Azulejos & Adhesivos</h1>
-    <p style="color:rgba(255,255,255,0.8);font-size:0.95rem;max-width:500px;">Azulejos de pared, mosaicos decorativos, pegasulejos y adhesivos para cada tipo de instalación.</p>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;margin:0.6rem 0 0.5rem;">Azulejos</h1>
+    <p style="color:rgba(255,255,255,0.8);font-size:0.95rem;max-width:500px;">Revestimientos de pared en los mejores acabados: brillante, mate, texturizado y rústico para cada estilo.</p>
   </div>
 </div>
 
@@ -181,7 +185,6 @@
       <div class="filter-title"><span class="material-symbols-outlined">category</span>Tipo</div>
       <div class="filter-option"><input type="checkbox" id="t-azulejo" value="azulejo" onchange="applyFilters()"><label for="t-azulejo">Azulejo de pared</label></div>
       <div class="filter-option"><input type="checkbox" id="t-mosaico" value="mosaico" onchange="applyFilters()"><label for="t-mosaico">Mosaico decorativo</label></div>
-      <div class="filter-option"><input type="checkbox" id="t-adhesivo" value="adhesivo" onchange="applyFilters()"><label for="t-adhesivo">Pegasulejos & Adhesivos</label></div>
     </div>
 
     <div class="filter-box">
@@ -381,69 +384,6 @@
 
     </div>
 
-    <!-- PEGASULEJOS & ADHESIVOS -->
-    <div class="cat-div" id="div-adhesivo"><span>Pegasulejos & Adhesivos</span></div>
-    <p class="cat-desc" id="desc-adhesivo">Morteros, adhesivos y boquillas para una instalación perfecta y duradera.</p>
-    <div class="products-grid" id="grid-adhesivo">
-
-      <div class="product-card fade-up" data-marca="vitromex" data-acabado="mate" data-tipo="adhesivo" data-precio="180">
-        <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Pegasulejos Blanco"/>
-          <span class="card-badge badge-hot">Top ventas</span>
-        </div>
-        <div style="padding:1rem;">
-          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Vitromex</p>
-          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Pegasulejos Blanco 20kg</h4>
-          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Adhesivo cerámico · Interior · Bolsa 20kg</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:var(--red);font-weight:700;font-size:1rem;">$180 <span style="font-size:0.75rem;font-weight:400;color:#6b7280;">/ bolsa</span></span>
-            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Pegasulejos%20Blanco%2020kg%20Vitromex" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card fade-up" data-marca="lamosa" data-acabado="mate" data-tipo="adhesivo" data-precio="220">
-        <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=600&q=80" alt="Pegasulejos Gris"/>
-        </div>
-        <div style="padding:1rem;">
-          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Lamosa</p>
-          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Adhesivo Porcelánico Gris</h4>
-          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Mortero · Porcelanato · Bolsa 25kg</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:var(--red);font-weight:700;font-size:1rem;">$220 <span style="font-size:0.75rem;font-weight:400;color:#6b7280;">/ bolsa</span></span>
-            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Adhesivo%20Porcelánico%20Gris%20Lamosa" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card fade-up" data-marca="dica" data-acabado="mate" data-tipo="adhesivo" data-precio="95">
-        <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Boquilla"/>
-          <span class="card-badge badge-sale">-20%</span>
-        </div>
-        <div style="padding:1rem;">
-          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Dica</p>
-          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Boquilla Flexible Blanca</h4>
-          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Junta · Flexible · Bolsa 1kg · Interior</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <span style="color:var(--red);font-weight:700;font-size:1rem;">$95 <span style="font-size:0.75rem;font-weight:400;color:#6b7280;">/ bolsa</span></span>
-              <span style="color:#9ca3af;font-size:0.78rem;text-decoration:line-through;margin-left:0.3rem;">$119</span>
-            </div>
-            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Boquilla%20Flexible%20Blanca%20Dica" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
   </div>
 </div>
 
@@ -461,7 +401,9 @@
       <a href="banos.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Baños</a>
       <a href="pisos.html"    style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Pisos</a>
       <a href="cocina.html"   style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Cocina</a>
-      <a href="azulejos.html" style="color:#fff;font-size:0.8rem;text-decoration:none;">Azulejos</a>
+      <a href="azulejos.html"  style="color:#fff;font-size:0.8rem;text-decoration:none;">Azulejos</a>
+      <a href="adhesivos.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Adhesivos</a>
+      <a href="canteras.html"  style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Canteras & Piedras</a>
       <a href="contacto.html" style="color:#6b7280;font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#6b7280'">Contacto</a>
     </div>
   </div>
@@ -479,7 +421,7 @@
   const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
   document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
-  const grids=['azulejo','mosaico','adhesivo'];
+  const grids=['azulejo','mosaico'];
 
   function applyFilters(){
     const marcas=[...document.querySelectorAll('input[id^="m-"]:checked')].map(i=>i.value);
