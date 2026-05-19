@@ -38,7 +38,7 @@
     .cat-hero-inner { position:relative; z-index:1; max-width:1280px; margin:0 auto; }
 
     /* LAYOUT */
-    .page-layout { max-width:1280px; margin:0 auto; padding:2.5rem 3rem; display:grid; grid-template-columns:260px 1fr; gap:2rem; }
+    .page-layout { max-width:1280px; margin:0 auto; padding:2.5rem 3rem; display:grid; grid-template-columns:260px 1fr; gap:2rem; background:var(--light); }
     @media(max-width:900px){ .page-layout { grid-template-columns:1fr; } #sidebar { display:none; } }
 
     /* SIDEBAR FILTROS */
@@ -155,6 +155,20 @@
   </div>
 </div>
 
+<!-- MOBILE MENU -->
+<div id="mob-menu" class="fixed inset-0 z-[200] flex-col items-center justify-center gap-6 text-center" style="background:rgba(20,20,20,0.97);">
+  <button id="close-mob" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;">✕</button>
+  <a href="griferia.html"  onclick="closeMob()" style="color:var(--red);" class="text-xl font-semibold block">Grifería</a>
+  <a href="banos.html"     onclick="closeMob()" class="text-white text-xl font-semibold block">Baños</a>
+  <a href="pisos.html"     onclick="closeMob()" class="text-white text-xl font-semibold block">Pisos</a>
+  <a href="cocina.html"    onclick="closeMob()" class="text-white text-xl font-semibold block">Cocina</a>
+  <a href="azulejos.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Azulejos</a>
+  <a href="adhesivos.html" onclick="closeMob()" class="text-white text-xl font-semibold block">Adhesivos</a>
+  <a href="canteras.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Canteras & Piedras</a>
+  <a href="contacto.html"  onclick="closeMob()" class="text-white text-xl font-semibold block">Contacto</a>
+  <a href="https://wa.me/5217411306781" target="_blank" class="btn-wa px-8 py-3 rounded-full text-base mt-4">WhatsApp</a>
+</div>
+
 <!-- HERO -->
 <div class="cat-hero">
   <div class="cat-hero-inner">
@@ -165,7 +179,7 @@
 </div>
 
 <!-- MAIN LAYOUT -->
-<div class="page-layout">
+<div class="page-layout" style="background:var(--light);">
 
   <!-- SIDEBAR -->
   <aside id="sidebar">
@@ -238,7 +252,7 @@
 
       <div class="product-card fade-up" data-marca="helvex" data-acabado="negro" data-precio="1480">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1585909695284-32d2985ac9c0?w=600&q=80" alt="Regadera Lluvia"/>
+          <img src="https://picsum.photos/seed/11/600/400" alt="Regadera Lluvia"/>
           <span class="card-badge badge-sale">-20%</span>
         </div>
         <div style="padding:1rem;">
@@ -260,7 +274,7 @@
 
       <div class="product-card fade-up" data-marca="moen" data-acabado="cromo" data-precio="3600">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1620626011761-996317702b88?w=600&q=80" alt="Kit Ducha"/>
+          <img src="https://picsum.photos/seed/12/600/400" alt="Kit Ducha"/>
           <span class="card-badge badge-hot">Popular</span>
         </div>
         <div style="padding:1rem;">
@@ -279,7 +293,7 @@
 
       <div class="product-card fade-up" data-marca="urrea" data-acabado="cromo" data-precio="680">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80" alt="Regadera Mano"/>
+          <img src="https://picsum.photos/seed/13/600/400" alt="Regadera Mano"/>
           <span class="card-badge badge-new">Nuevo</span>
         </div>
         <div style="padding:1rem;">
@@ -305,7 +319,7 @@
 
       <div class="product-card fade-up" data-marca="helvex" data-acabado="cromo" data-precio="2617">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Monomando"/>
+          <img src="https://picsum.photos/seed/14/600/400" alt="Monomando"/>
           <span class="card-badge badge-hot">Top ventas</span>
         </div>
         <div style="padding:1rem;">
@@ -324,7 +338,7 @@
 
       <div class="product-card fade-up" data-marca="moen" data-acabado="negro" data-precio="5290">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80" alt="Monomando Moen"/>
+          <img src="https://picsum.photos/seed/15/600/400" alt="Monomando Moen"/>
         </div>
         <div style="padding:1rem;">
           <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Moen</p>
@@ -342,7 +356,7 @@
 
       <div class="product-card fade-up" data-marca="urrea" data-acabado="cromo" data-precio="1449">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Mezcladora Urrea"/>
+          <img src="https://picsum.photos/seed/16/600/400" alt="Mezcladora Urrea"/>
         </div>
         <div style="padding:1rem;">
           <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Urrea</p>
@@ -367,7 +381,7 @@
 
       <div class="product-card fade-up" data-marca="helvex" data-acabado="cromo" data-precio="2571">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1615971677499-5467cbab01b0?w=600&q=80" alt="Llave Hospital"/>
+          <img src="https://picsum.photos/seed/17/600/400" alt="Llave Hospital"/>
         </div>
         <div style="padding:1rem;">
           <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Helvex</p>
@@ -385,7 +399,7 @@
 
       <div class="product-card fade-up" data-marca="dica" data-acabado="cromo" data-precio="950">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Válvula"/>
+          <img src="https://picsum.photos/seed/18/600/400" alt="Válvula"/>
           <span class="card-badge badge-new">Nuevo</span>
         </div>
         <div style="padding:1rem;">
@@ -404,7 +418,7 @@
 
       <div class="product-card fade-up" data-marca="urrea" data-acabado="inox" data-precio="1200">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=600&q=80" alt="Coladera"/>
+          <img src="https://picsum.photos/seed/19/600/400" alt="Coladera"/>
         </div>
         <div style="padding:1rem;">
           <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Urrea</p>
@@ -476,7 +490,7 @@
       const p=parseFloat(card.dataset.precio);
       const marcaOk=marcas.length===0||marcas.includes(m);
       const acabadoOk=acabados.length===0||acabados.includes(a);
-      const precioOk=p>=minP&&p<=maxP;
+      const precioOk=p>=minP;
       if(marcaOk&&acabadoOk&&precioOk){card.style.display='';visible++;}
       else{card.style.display='none';}
     });
