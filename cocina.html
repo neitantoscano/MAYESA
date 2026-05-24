@@ -175,14 +175,6 @@
     </div>
 
     <div class="filter-box">
-      <div class="filter-title"><span class="material-symbols-outlined">category</span>Categoría</div>
-      <div class="filter-option"><input type="checkbox" id="c-tarja" value="tarja" onchange="applyFilters()"><label for="c-tarja">Tarjas / Fregaderos</label></div>
-      <div class="filter-option"><input type="checkbox" id="c-mezcladora" value="mezcladora" onchange="applyFilters()"><label for="c-mezcladora">Mezcladoras</label></div>
-      <div class="filter-option"><input type="checkbox" id="c-campana" value="campana" onchange="applyFilters()"><label for="c-campana">Campanas</label></div>
-      <div class="filter-option"><input type="checkbox" id="c-accesorio" value="accesorio" onchange="applyFilters()"><label for="c-accesorio">Accesorios</label></div>
-    </div>
-
-    <div class="filter-box">
       <div class="filter-title"><span class="material-symbols-outlined">payments</span>Precio (MXN)</div>
       <div class="price-inputs">
         <input type="number" id="price-min" placeholder="Mín" min="0"/>
@@ -472,12 +464,10 @@
 
   function applyFilters(){
     const marcas=[...document.querySelectorAll('input[id^="m-"]:checked')].map(i=>i.value);
-    const cats=[...document.querySelectorAll('input[id^="c-"]:checked')].map(i=>i.value);
     const minP=parseFloat(document.getElementById('price-min').value)||0;
         let total=0;
     document.querySelectorAll('.product-card').forEach(card=>{
       const ok=(marcas.length===0||marcas.includes(card.dataset.marca))&&
-               (cats.length===0||cats.includes(card.dataset.cat))&&
                parseFloat(card.dataset.precio)>=minP;
       card.style.display=ok?'':'none';
       if(ok)total++;
