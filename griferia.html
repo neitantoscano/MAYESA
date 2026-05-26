@@ -201,11 +201,11 @@
     <!-- Filtro Marca -->
     <div class="filter-box">
       <div class="filter-title"><span class="material-symbols-outlined">sell</span>Marca</div>
+      <div class="filter-option"><input type="checkbox" id="m-foset" value="foset" onchange="applyFilters()"><label for="m-foset">Foset</label></div>
+      <div class="filter-option"><input type="checkbox" id="m-anbec" value="anbec" onchange="applyFilters()"><label for="m-anbec">Anbec</label></div>
       <div class="filter-option"><input type="checkbox" id="m-helvex" value="helvex" onchange="applyFilters()"><label for="m-helvex">Helvex</label></div>
       <div class="filter-option"><input type="checkbox" id="m-moen" value="moen" onchange="applyFilters()"><label for="m-moen">Moen</label></div>
       <div class="filter-option"><input type="checkbox" id="m-urrea" value="urrea" onchange="applyFilters()"><label for="m-urrea">Urrea</label></div>
-      <div class="filter-option"><input type="checkbox" id="m-dica" value="dica" onchange="applyFilters()"><label for="m-dica">Dica</label></div>
-      <div class="filter-option"><input type="checkbox" id="m-teka" value="teka" onchange="applyFilters()"><label for="m-teka">Teka</label></div>
     </div>
 
     <!-- Filtro Acabado -->
@@ -265,7 +265,7 @@
     <div class="products-grid" id="grid-regaderas">
 
       <!-- REGADERA 1 -->
-      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="0"
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="455"
            data-nombre="Túbig R-414 — Regadera cuadrada con brazo de pared"
            data-specs="Cabeza cuadrada 6&quot; (15 cm) · Brazo de pared 30 cm · Acabado cromado · Acero inoxidable"
            data-desc="Regadera cuadrada Foset Túbig R-414 con acabado cromado y cuerpo de acero inoxidable. Incluye brazo de pared de 30 cm y cabezal de 6&quot; con funcionamiento para baja presión."
@@ -280,7 +280,7 @@
           <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Regadera cuadrada Foset Túbig R-414 con acabado cromado y cuerpo de acero inoxidable. Incluye brazo de pared de 30 cm y cabezal de 6&quot; con funcionamiento para baja presión.</p>
           <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$455 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
             <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20T%C3%BAbig%20R-414" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
@@ -288,7 +288,7 @@
         </div>
       </div>
       <!-- REGADERA 2 -->
-      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="0"
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="255"
            data-nombre="Aero R-510 — Regadera con brazo y chapetón"
            data-specs="Acabado cromado · Cabeza tipo plato de 6&quot; · Brazo a muro de 30 cm · Boquillas de fácil limpieza"
            data-desc="Regadera Foset Aero R-510 con diseño moderno tipo lluvia, acabado cromado y sistema de fácil limpieza para mayor durabilidad y confort."
@@ -303,7 +303,7 @@
           <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Regadera Foset Aero R-510 con diseño moderno tipo lluvia, acabado cromado y sistema de fácil limpieza para mayor durabilidad y confort.</p>
           <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$255 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
             <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Aero%20R-510" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
@@ -311,7 +311,7 @@
         </div>
       </div>
       <!-- REGADERA 3 -->
-      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="0"
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="389.5"
            data-nombre="Regadera cuadrada ABS cromada tipo lluvia"
            data-specs="Cuerpo de ABS cromado · Sistema anti-obstrucción · Diseño cuadrado tipo lluvia"
            data-desc="Regadera cuadrada con acabado cromado y sistema anti-obstrucción, diseñada para brindar una salida uniforme de agua y un estilo moderno para baño."
@@ -326,7 +326,7 @@
           <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Regadera cuadrada con acabado cromado y sistema anti-obstrucción, diseñada para brindar una salida uniforme de agua y un estilo moderno para baño.</p>
           <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$389.50 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
             <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Regadera%20cuadrada%20ABS%20cromada" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
@@ -334,7 +334,7 @@
         </div>
       </div>
       <!-- REGADERA 4 -->
-      <div class="product-card fade-up" data-marca="anbec" data-acabado="cromo" data-precio="0"
+      <div class="product-card fade-up" data-marca="anbec" data-acabado="cromo" data-precio="188"
            data-nombre="Regadera redonda Anbec RC8 de 8″"
            data-specs="Cuerpo de ABS cromado · Diámetro de 8 pulgadas (20 cm) · Certificación NOM"
            data-desc="Regadera redonda Anbec RC8 de 8″ con cuerpo ABS cromado, eficiente en baja presión y con certificación NOM."
@@ -349,7 +349,7 @@
           <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Regadera redonda Anbec RC8 de 8″ con cuerpo ABS cromado, eficiente en baja presión y con certificación NOM.</p>
           <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$188 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
             <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Regadera%20Anbec%20RC8" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
@@ -357,7 +357,7 @@
         </div>
       </div>
       <!-- REGADERA 5 -->
-      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="0"
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="575"
            data-nombre="Túbig R-415 — Regadera cuadrada con brazo y chapetón"
            data-specs="Cabeza cuadrada de 8&quot; · Brazo de pared de 50 cm · Cuerpo de acero inoxidable"
            data-desc="Regadera Foset Túbig R-415 con diseño moderno tipo lluvia, acabado cromado y brazo largo de 50 cm que brinda mayor alcance y una salida uniforme de agua incluso en baja presión."
@@ -372,7 +372,7 @@
           <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Regadera Foset Túbig R-415 con diseño moderno tipo lluvia, acabado cromado y brazo largo de 50 cm que brinda mayor alcance y una salida uniforme de agua incluso en baja presión.</p>
           <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$575 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
             <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20T%C3%BAbig%20R-415" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
@@ -380,7 +380,7 @@
         </div>
       </div>
       <!-- REGADERA 6 -->
-      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="0"
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="995"
            data-nombre="Aero R-001 — Regadera fija con extensión tipo teléfono"
            data-specs="Cabeza de ABS de 8 cm · Manguera de 1.5 m · Funciona con presión media"
            data-desc="Regadera Foset Aero R-001 con extensión tipo teléfono, acabado cromado y diseño práctico que brinda mayor movilidad y comodidad durante el baño."
@@ -395,7 +395,7 @@
           <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Regadera Foset Aero R-001 con extensión tipo teléfono, acabado cromado y diseño práctico que brinda mayor movilidad y comodidad durante el baño.</p>
           <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$995 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
             <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Aero%20R-001" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
@@ -403,7 +403,7 @@
         </div>
       </div>
       <!-- REGADERA 7 -->
-      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="0"
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="575"
            data-nombre="Element R-202 — Regadera con brazo y chapetón"
            data-specs="5 funciones de salida de agua · Cabeza ABS multiposición de 4&quot; · Funciona con presión media y alta"
            data-desc="Regadera Foset Element R-202 con sistema multiposición y acabado cromado, diseñada para brindar distintos tipos de flujo con mayor comodidad y resistencia."
@@ -418,7 +418,7 @@
           <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Regadera Foset Element R-202 con sistema multiposición y acabado cromado, diseñada para brindar distintos tipos de flujo con mayor comodidad y resistencia.</p>
           <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$575 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
             <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20la%20Element%20R-202" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
@@ -474,6 +474,31 @@
     <div class="cat-div"><span>Monomandos</span></div>
     <p class="cat-desc">Control preciso de temperatura y flujo para baño y cocina.</p>
     <div class="products-grid" id="grid-monomandos">
+
+      <!-- MONOMANDO EXTRAÍBLE (datos reales) -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromo" data-precio="395"
+           data-nombre="Monomando para Fregadero Extraíble (Pull-Out)"
+           data-specs="Acabado cromo · Cuello curvo rígido · Cabezal retráctil · Giro 360°"
+           data-desc="Mezcladora monomando de cocina con cabezal retráctil y manguera extensible. Permite cambiar el flujo de agua entre chorro fijo y tipo lluvia. Diseño ergonómico de arco alto que rota 360 grados para máxima comodidad."
+           data-img="IMG_MONOMANDO_1"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20Fregadero%20Extra%C3%ADble">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="IMG_MONOMANDO_1" alt="Monomando para Fregadero Extraíble Pull-Out"/>
+          <span class="card-badge badge-new">Nuevo</span>
+        </div>
+        <div style="padding:1rem;">
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.25rem;line-height:1.3;">Monomando para Fregadero Extraíble (Pull-Out)</h4>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cromo · Cuello curvo rígido · Cabezal retráctil · Giro 360°</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora monomando de cocina con cabezal retráctil y manguera extensible. Flujo chorro fijo o tipo lluvia, arco alto que rota 360°.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$395 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20Fregadero%20Extra%C3%ADble" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
 
       <div class="product-card fade-up" data-marca="helvex" data-acabado="cromo" data-precio="2617">
         <div style="overflow:hidden;height:190px;position:relative;">
