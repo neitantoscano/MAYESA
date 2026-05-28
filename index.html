@@ -110,6 +110,15 @@
     /* SECTION PADDING */
     .sec { padding: 4.5rem 3rem; }
     @media(max-width:640px){ .sec { padding: 3rem 1.25rem; } .nav-inner { padding: 0.75rem 1.25rem; } .pnav-inner { padding: 0 1rem; } #top-bar { padding: 0.4rem 1rem; } }
+
+    /* CARRUSEL MARCAS */
+    .marcas-track { display:flex; gap:1.5rem; animation:scroll-marcas 30s linear infinite; width:max-content; padding:0.5rem 0; }
+    .marcas-track:hover { animation-play-state:paused; }
+    @keyframes scroll-marcas { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .marca-logo { background:#fff; border:1.5px solid #e5e7eb; border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:center; width:160px; height:90px; flex-shrink:0; transition:box-shadow 0.2s,border-color 0.2s; }
+    .marca-logo:hover { box-shadow:0 6px 20px rgba(0,0,0,0.10); border-color:var(--red); }
+    .marca-logo img { max-width:120px; max-height:55px; object-fit:contain; filter:grayscale(20%); transition:filter 0.2s; }
+    .marca-logo:hover img { filter:grayscale(0%); }
   </style>
 </head>
 <body>
@@ -314,7 +323,7 @@
 </section>
 
 <!-- PROVEEDORES -->
-<section class="sec" style="background:var(--light);">
+<section class="sec" style="background:var(--light);overflow:hidden;">
   <div style="max-width:1280px;margin:0 auto;">
     <div class="text-center fade-up" style="margin-bottom:2.5rem;">
       <div class="sec-label">Alianzas</div>
@@ -322,15 +331,35 @@
       <div class="sec-divider"></div>
       <p style="color:#6b7280;margin-top:1rem;font-size:0.9rem;">Trabajamos con las mejores marcas para garantizar calidad en cada producto.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;" class="fade-up">
-      <div class="prov-card">HELVEX</div>
-      <div class="prov-card">MOEN</div>
-      <div class="prov-card">URREA</div>
-      <div class="prov-card">TEKA</div>
-      <div class="prov-card">DICA</div>
-      <div class="prov-card">VITROMEX</div>
-      <div class="prov-card">INTERCERAMIC</div>
-      <div class="prov-card">LAMOSA</div>
+  </div>
+  <!-- CARRUSEL LOGOS -->
+  <div style="position:relative;overflow:hidden;">
+    <!-- Degradados laterales -->
+    <div style="position:absolute;left:0;top:0;bottom:0;width:100px;background:linear-gradient(to right,var(--light),transparent);z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(to left,var(--light),transparent);z-index:2;pointer-events:none;"></div>
+    <div class="marcas-track">
+      <!-- SET 1 -->
+      <div class="marca-logo"><img src="https://i.ibb.co/6RG4Gt6W/lamosa.png" alt="Lamosa"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/zVdqtkvN/foncer.png" alt="Foncer"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/3mfvp22r/redthols.avif" alt="Redtools"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/yms479Lp/tecnopiso.png" alt="Tecnopiso"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/84PQYXVg/niasa.webp" alt="Niasa"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/FqhrtVHc/Fortec-logo-1.webp" alt="Grupo Fortec"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/qYMxZqSX/dica.png" alt="Dica"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/4QCMBkt/tiles2000.png" alt="Tiles 2000"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/Sw5V6JtC/crest.png" alt="Crest"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/8gxKjm3k/CATO.webp" alt="Cato Cerámica"/></div>
+      <!-- SET 2 (duplicado para loop infinito) -->
+      <div class="marca-logo"><img src="https://i.ibb.co/6RG4Gt6W/lamosa.png" alt="Lamosa"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/zVdqtkvN/foncer.png" alt="Foncer"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/3mfvp22r/redthols.avif" alt="Redtools"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/yms479Lp/tecnopiso.png" alt="Tecnopiso"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/84PQYXVg/niasa.webp" alt="Niasa"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/FqhrtVHc/Fortec-logo-1.webp" alt="Grupo Fortec"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/qYMxZqSX/dica.png" alt="Dica"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/4QCMBkt/tiles2000.png" alt="Tiles 2000"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/Sw5V6JtC/crest.png" alt="Crest"/></div>
+      <div class="marca-logo"><img src="https://i.ibb.co/8gxKjm3k/CATO.webp" alt="Cato Cerámica"/></div>
     </div>
   </div>
 </section>
