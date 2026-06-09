@@ -96,6 +96,26 @@
 
     /* WA SVG reutilizable */
     .wa-icon { width:12px; height:12px; }
+
+    /* MODAL PRODUCTO */
+    #modal-overlay { display:none; position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:1rem; animation:fadeIn 0.25s ease; }
+    #modal-overlay.open { display:flex; }
+    #modal-box { background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.3); animation:slideUp 0.3s ease; position:relative; }
+    #modal-close { position:absolute; top:1rem; right:1rem; background:#fff; border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:1.3rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.15); z-index:2; transition:all 0.2s; }
+    #modal-close:hover { background:var(--red); color:#fff; }
+    #modal-img-wrap { position:relative; width:100%; height:280px; overflow:hidden; border-radius:16px 16px 0 0; background:#f3f4f6; }
+    #modal-img-wrap img { width:100%; height:100%; object-fit:cover; }
+    #modal-content { padding:1.5rem; }
+    #modal-marca { font-size:0.7rem; color:var(--red); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem; }
+    #modal-nombre { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:0.5rem; line-height:1.3; }
+    #modal-ref { display:inline-block; background:var(--navy); color:#fff; font-size:0.7rem; font-weight:700; padding:0.15rem 0.6rem; border-radius:4px; letter-spacing:0.05em; margin-bottom:0.8rem; }
+    #modal-specs { font-size:0.85rem; color:#374151; background:#f9fafb; padding:0.75rem 1rem; border-left:3px solid var(--red); border-radius:6px; margin-bottom:1rem; }
+    #modal-desc { font-size:0.9rem; color:#6b7280; line-height:1.6; margin-bottom:1.25rem; }
+    #modal-footer { display:flex; justify-content:space-between; align-items:center; padding-top:1rem; border-top:1px solid #e5e7eb; flex-wrap:wrap; gap:0.75rem; }
+    #modal-precio { color:var(--red); font-weight:700; font-size:1.4rem; }
+    #modal-precio.cotizar { color:#6b7280; font-style:italic; font-size:1rem; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
   </style>
 </head>
 <body>
@@ -171,6 +191,7 @@
   <aside id="sidebar">
     <div class="filter-box">
       <div class="filter-title"><span class="material-symbols-outlined">sell</span>Marca</div>
+      <div class="filter-option"><input type="checkbox" id="m-foset" value="foset" onchange="applyFilters()"><label for="m-foset">Foset</label></div>
       <div class="filter-option"><input type="checkbox" id="m-helvex" value="helvex" onchange="applyFilters()"><label for="m-helvex">Helvex</label></div>
       <div class="filter-option"><input type="checkbox" id="m-moen" value="moen" onchange="applyFilters()"><label for="m-moen">Moen</label></div>
       <div class="filter-option"><input type="checkbox" id="m-urrea" value="urrea" onchange="applyFilters()"><label for="m-urrea">Urrea</label></div>
@@ -179,11 +200,11 @@
     </div>
 
     <div class="filter-box">
-      <div class="filter-title"><span class="material-symbols-outlined">palette</span>Material</div>
-      <div class="filter-option"><input type="checkbox" id="mat-ceramica" value="ceramica" onchange="applyFilters()"><label for="mat-ceramica">Cerámica</label></div>
-      <div class="filter-option"><input type="checkbox" id="mat-acrilico" value="acrilico" onchange="applyFilters()"><label for="mat-acrilico">Acrílico</label></div>
-      <div class="filter-option"><input type="checkbox" id="mat-porcelana" value="porcelana" onchange="applyFilters()"><label for="mat-porcelana">Porcelana</label></div>
-      <div class="filter-option"><input type="checkbox" id="mat-madera" value="madera" onchange="applyFilters()"><label for="mat-madera">Madera / MDF</label></div>
+      <div class="filter-title"><span class="material-symbols-outlined">palette</span>Acabado</div>
+      <div class="filter-option"><input type="checkbox" id="ac-cromado" value="cromado" onchange="applyFilters()"><label for="ac-cromado">Cromado</label></div>
+      <div class="filter-option"><input type="checkbox" id="ac-negro-mate" value="negro-mate" onchange="applyFilters()"><label for="ac-negro-mate">Negro mate</label></div>
+      <div class="filter-option"><input type="checkbox" id="ac-dorado" value="dorado" onchange="applyFilters()"><label for="ac-dorado">Dorado</label></div>
+      <div class="filter-option"><input type="checkbox" id="ac-satinado" value="satinado" onchange="applyFilters()"><label for="ac-satinado">Satinado</label></div>
     </div>
 
     <div class="filter-box">
@@ -208,7 +229,7 @@
   <!-- PRODUCTOS -->
   <div>
     <div class="products-header">
-      <p class="results-count">Mostrando <span id="count">12</span> productos</p>
+      <p class="results-count">Mostrando <span id="count">20</span> productos</p>
       <select class="sort-select" onchange="sortProducts(this.value)">
         <option value="default">Ordenar por: Relevancia</option>
         <option value="price-asc">Precio: menor a mayor</option>
@@ -223,62 +244,428 @@
       <button class="btn-clear" style="width:auto;margin-top:1rem;padding:0.5rem 1.5rem;" onclick="clearFilters()">Limpiar filtros</button>
     </div>
 
-    <!-- LAVABOS -->
-    <div class="cat-div" id="div-lavabos"><span>Lavabos</span></div>
-    <p class="cat-desc" id="desc-lavabos">Diseños modernos y clásicos en cerámica y porcelana de alta calidad.</p>
-    <div class="products-grid" id="grid-lavabos">
+    <!-- MANERALES & ACCESORIOS DE BAÑO -->
+    <div class="cat-div" id="div-manerales"><span>Manerales & Accesorios de Baño</span></div>
+    <p class="cat-desc" id="desc-manerales">Manerales para regadera y juegos completos de accesorios en distintos acabados: cromado, negro mate, dorado y satinado.</p>
+    <div class="products-grid" id="grid-manerales">
 
-      <div class="product-card fade-up" data-marca="helvex" data-material="ceramica" data-precio="2400">
+      <!-- 1. Foset 47975 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromado" data-precio="1090"
+           data-nombre="Juego de Accesorios de Baño Foset 47975"
+           data-specs="Juego completo · Cromado · 6 piezas"
+           data-desc="Juego de accesorios para baño en acabado cromado. Incluye toallero, portarrollo, aro, vaso, jabonera y gancho. Diseño elegante y resistente, ideal para baños modernos."
+           data-img="https://i.ibb.co/6JN0fVfH/Whats-App-Image-2026-06-07-at-2-52-58-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Foset%2047975">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://picsum.photos/seed/21/600/400" alt="Lavabo Suspendido"/>
-          <span class="card-badge badge-hot">Popular</span>
+          <img src="https://i.ibb.co/6JN0fVfH/Whats-App-Image-2026-06-07-at-2-52-58-PM.jpg" alt="Juego de Accesorios Foset 47975"/>
+          <span class="card-badge badge-hot">Top ventas</span>
         </div>
         <div style="padding:1rem;">
-          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Helvex</p>
-          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Lavabo Suspendido</h4>
-          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Cerámica · Blanco mate · Flotante</p>
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Juego de Accesorios Cromado</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 47975</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Juego completo · Cromado · 6 piezas</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Toallero, portarrollo, aro, vaso, jabonera y gancho.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:var(--red);font-weight:700;font-size:1rem;">$2,400</span>
-            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20Suspendido%20Helvex" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
-              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Pedir
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,090 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ juego</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Foset%2047975" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
           </div>
         </div>
       </div>
 
-      <div class="product-card fade-up" data-marca="interceramic" data-material="porcelana" data-precio="1850">
+      <!-- 2. Dica 1100.5 -->
+      <div class="product-card fade-up" data-marca="dica" data-acabado="dorado" data-precio="1290.64"
+           data-nombre="Juego de Accesorios de Baño Dica 1100.5"
+           data-specs="Accesorios baño · Dorado · Diseño moderno"
+           data-desc="Juego de accesorios para baño con acabado dorado de alta calidad. Diseño moderno y elegante que aporta un toque de lujo a cualquier baño."
+           data-img="https://i.ibb.co/kVffmkX9/Whats-App-Image-2026-06-07-at-2-52-58-PM-1.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%201100.5">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://picsum.photos/seed/22/600/400" alt="Lavabo Empotrar"/>
+          <img src="https://i.ibb.co/kVffmkX9/Whats-App-Image-2026-06-07-at-2-52-58-PM-1.jpg" alt="Juego de Accesorios Dica 1100.5"/>
           <span class="card-badge badge-new">Nuevo</span>
         </div>
         <div style="padding:1rem;">
-          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Interceramic</p>
-          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Lavabo para Empotrar</h4>
-          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Porcelana · Blanco brillante</p>
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Juego de Accesorios Dorado</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 1100.5</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Accesorios baño · Dorado · Moderno</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Acabado dorado de alta calidad con diseño moderno y elegante.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,850</span>
-            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20para%20Empotrar%20Interceramic" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
-              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Pedir
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,290.64 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ juego</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%201100.5" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
           </div>
         </div>
       </div>
 
-      <div class="product-card fade-up" data-marca="urrea" data-material="ceramica" data-precio="3200">
+      <!-- 3. Dica 3200.2 -->
+      <div class="product-card fade-up" data-marca="dica" data-acabado="negro-mate" data-precio="1196.55"
+           data-nombre="Juego de Accesorios de Baño Dica 3200.2"
+           data-specs="Negro mate · 5 piezas"
+           data-desc="Juego de accesorios para baño en acabado negro mate. Incluye barra, aro, portarrollo, vaso y gancho. Diseño contemporáneo perfecto para baños modernos."
+           data-img="https://i.ibb.co/bg7vQdVR/Whats-App-Image-2026-06-07-at-2-52-58-PM-2.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%203200.2">
         <div style="overflow:hidden;height:190px;position:relative;">
-          <img src="https://picsum.photos/seed/23/600/400" alt="Lavabo Pedestal"/>
+          <img src="https://i.ibb.co/bg7vQdVR/Whats-App-Image-2026-06-07-at-2-52-58-PM-2.jpg" alt="Juego de Accesorios Dica 3200.2"/>
+          <span class="card-badge badge-new">Nuevo</span>
         </div>
         <div style="padding:1rem;">
-          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Urrea</p>
-          <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">Lavabo con Pedestal</h4>
-          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.75rem;">Cerámica · Diseño clásico</p>
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Juego Accesorios Negro Mate</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 3200.2</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Negro mate · 5 piezas</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Barra, aro, portarrollo, vaso y gancho en acabado negro mate.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:var(--red);font-weight:700;font-size:1rem;">$3,200</span>
-            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Lavabo%20con%20Pedestal%20Urrea" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
-              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Pedir
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,196.55 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ juego</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%203200.2" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Dica 3400 -->
+      <div class="product-card fade-up" data-marca="dica" data-acabado="cromado" data-precio="1275.55"
+           data-nombre="Juego de Accesorios de Baño Dica 3400"
+           data-specs="Cromado · 5 piezas"
+           data-desc="Juego de accesorios para baño en acabado cromado. Incluye barra, aro, portarrollo, vaso y gancho. Acabado brillante y resistente."
+           data-img="https://i.ibb.co/0Rq67TfQ/Whats-App-Image-2026-06-07-at-2-52-58-PM-3.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%203400">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/0Rq67TfQ/Whats-App-Image-2026-06-07-at-2-52-58-PM-3.jpg" alt="Juego de Accesorios Dica 3400"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Juego Accesorios Cromado</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 3400</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cromado · 5 piezas</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Barra, aro, portarrollo, vaso y gancho. Acabado cromado brillante.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,275.55 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ juego</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%203400" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Foset 46881 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="negro-mate" data-precio="335"
+           data-nombre="Manerales para Regadera Foset 46881"
+           data-specs="Manerales · Hexagonal · Negro mate"
+           data-desc="Par de manerales metálicos para regadera con diseño hexagonal en acabado negro mate. Elegantes y resistentes para baños modernos."
+           data-img="https://i.ibb.co/9mK1dy7j/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-46881-jpg.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2046881">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/9mK1dy7j/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-46881-jpg.jpg" alt="Manerales Foset 46881"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Hexagonales Negro Mate</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 46881</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Manerales · Hexagonal · Negro mate</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Par de manerales metálicos hexagonales en acabado negro mate.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$335 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2046881" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Foset 46878 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromado" data-precio="229"
+           data-nombre="Manerales para Regadera Foset 46878"
+           data-specs="Manerales · Cromado · Con chapetón"
+           data-desc="Par de manerales para regadera en acabado cromado con chapetón incluido. Clásicos y resistentes para instalaciones estándar."
+           data-img="https://i.ibb.co/FkPWRYDN/JUEGO-DE-MANERALES-FOSET-46878.webp"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2046878">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/FkPWRYDN/JUEGO-DE-MANERALES-FOSET-46878.webp" alt="Manerales Foset 46878"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Cromados con Chapetón</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 46878</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Manerales · Cromado · Con chapetón</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Par de manerales cromados con chapetón. Diseño clásico y resistente.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$229 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2046878" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Foset 49785 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromado" data-precio="365"
+           data-nombre="Manerales para Regadera Foset 49785"
+           data-specs="Manerales · Tipo cruceta · Cromado"
+           data-desc="Par de manerales tipo cruceta con acabado cromado. Diseño retro-clásico ideal para baños tradicionales o estilo industrial."
+           data-img="https://i.ibb.co/G4DdkZLX/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-49785-jpg.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2049785">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/G4DdkZLX/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-49785-jpg.jpg" alt="Manerales Foset 49785"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Tipo Cruceta Cromado</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 49785</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Manerales · Tipo cruceta · Cromado</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Par de manerales tipo cruceta con acabado cromado, diseño clásico.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$365 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2049785" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Dica MQN.2 -->
+      <div class="product-card fade-up" data-marca="dica" data-acabado="negro-mate" data-precio="259.19"
+           data-nombre="Manerales para Regadera Dica MQN.2"
+           data-specs="Manerales · Negro mate · Diseño moderno"
+           data-desc="Par de manerales para regadera en acabado negro mate con diseño moderno. Perfectos para baños contemporáneos."
+           data-img="https://i.ibb.co/qMYf8yQp/JUEGO-DE-MANERALES-DICA-MQN-2.webp"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Dica%20MQN.2">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/qMYf8yQp/JUEGO-DE-MANERALES-DICA-MQN-2.webp" alt="Manerales Dica MQN.2"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Negro Mate Moderno</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: MQN.2</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Manerales · Negro mate · Moderno</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Par de manerales con diseño moderno en acabado negro mate.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$259.19 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Dica%20MQN.2" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Foset 49241 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromado" data-precio="219"
+           data-nombre="Manerales para Regadera Foset 49241"
+           data-specs="Manerales · Cromado · Con chapetón"
+           data-desc="Par de manerales para regadera cromados con chapetón incluido. Económicos y resistentes, ideales para instalaciones residenciales."
+           data-img="https://i.ibb.co/5WgDhC9K/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-49241-jpg.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2049241">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/5WgDhC9K/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-49241-jpg.jpg" alt="Manerales Foset 49241"/>
+          <span class="card-badge badge-hot">Económico</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Cromados Económicos</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 49241</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Manerales · Cromado · Con chapetón</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Par de manerales cromados con chapetón. Opción económica y resistente.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$219 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2049241" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Dica QDG -->
+      <div class="product-card fade-up" data-marca="dica" data-acabado="cromado" data-precio="257.16"
+           data-nombre="Manerales para Regadera Dica QDG"
+           data-specs="Manerales · Cromado · Con chapetón"
+           data-desc="Par de manerales para regadera en acabado cromado con chapetón. Diseño clásico Dica de alta durabilidad."
+           data-img="https://i.ibb.co/twF49ZK9/JUEGO-DE-MANERALES-PARA-REGADERA-DICA-QDG.webp"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Dica%20QDG">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/twF49ZK9/JUEGO-DE-MANERALES-PARA-REGADERA-DICA-QDG.webp" alt="Manerales Dica QDG"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Cromados con Chapetón</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: QDG</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Manerales · Cromado · Con chapetón</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Par de manerales cromados con chapetón. Diseño clásico de alta durabilidad.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$257.16 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Dica%20QDG" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Foset MR-200Z (COTIZAR) -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="" data-precio="0"
+           data-nombre="Manerales Acrílico Foset MR-200Z"
+           data-specs="Manerales grandes · Acrílico azul · Con chapetón"
+           data-desc="Par de manerales grandes con perilla de acrílico azul y chapetón. Diseño llamativo para baños con estilo retro o decorativo."
+           data-img="https://i.ibb.co/4Z93Ks2T/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-MR-200-Z-jpg.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%20MR-200Z">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/4Z93Ks2T/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-MR-200-Z-jpg.jpg" alt="Manerales Foset MR-200Z"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Grandes Acrílico Azul</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: MR-200Z</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Grandes · Acrílico azul · Con chapetón</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Par de manerales grandes con perilla de acrílico azul y chapetón incluido.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%20MR-200Z" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12. Foset 49629 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="negro-mate" data-precio="645"
+           data-nombre="Manerales para Regadera Foset 49629"
+           data-specs="Manerales · Negro mate · Cartucho cerámico"
+           data-desc="Par de manerales para regadera en acabado negro mate con cartucho cerámico de larga duración. Mayor durabilidad y suavidad de uso."
+           data-img="https://i.ibb.co/YFBvrPZS/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-49629.webp"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2049629">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/YFBvrPZS/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-49629.webp" alt="Manerales Foset 49629"/>
+          <span class="card-badge badge-new">Premium</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Negro Mate Cartucho Cerámico</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 49629</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Negro mate · Cartucho cerámico</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Cartucho cerámico de larga duración. Mayor suavidad y vida útil.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$645 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2049629" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13. Foset 46877 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="negro-mate" data-precio="245"
+           data-nombre="Manerales para Regadera Foset 46877"
+           data-specs="Manerales · Negro mate · 1/4 de vuelta"
+           data-desc="Par de manerales para regadera en acabado negro mate con sistema de 1/4 de vuelta. Cierre rápido y eficiente."
+           data-img="https://i.ibb.co/JRw7tY4g/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-46877.webp"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2046877">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/JRw7tY4g/JUEGO-DE-MANERALES-PARA-REGADERA-FOSET-46877.webp" alt="Manerales Foset 46877"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Manerales Negro Mate 1/4 Vuelta</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 46877</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Negro mate · 1/4 de vuelta</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Sistema de cierre 1/4 de vuelta para operación rápida y eficiente.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$245 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ par</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Maneral%20Foset%2046877" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14. Foset 49640 -->
+      <div class="product-card fade-up" data-marca="foset" data-acabado="cromado" data-precio="1375"
+           data-nombre="Juego de Accesorios de Baño Foset 49640"
+           data-specs="Juego completo · Cromado · 5 piezas"
+           data-desc="Juego de accesorios para baño en acabado cromado. Incluye toallero, aro, jabonera, vaso y gancho. Calidad Foset para baños modernos."
+           data-img="https://i.ibb.co/ZzBSt1bh/JUEGO-DE-ACCESORIOS-DE-BA-O-FOSET-49640.webp"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Foset%2049640">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/ZzBSt1bh/JUEGO-DE-ACCESORIOS-DE-BA-O-FOSET-49640.webp" alt="Juego Accesorios Foset 49640"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Juego Accesorios Cromado 5 piezas</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 49640</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Juego completo · Cromado · 5 piezas</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Toallero, aro, jabonera, vaso y gancho. Acabado cromado.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,375 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ juego</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Foset%2049640" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15. Dica 2800 -->
+      <div class="product-card fade-up" data-marca="dica" data-acabado="cromado" data-precio="1547.47"
+           data-nombre="Juego de Accesorios de Baño Dica 2800"
+           data-specs="Juego completo · Cromado · 5 piezas"
+           data-desc="Juego de accesorios para baño en acabado cromado. Incluye barra, aro, jabonera, vaso y portarrollo. Diseño elegante de la línea Dica."
+           data-img="https://i.ibb.co/BKHcktjh/JUEGO-DE-ACCESORIOS-DE-BA-O-FOSET-2800.webp"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%202800">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/BKHcktjh/JUEGO-DE-ACCESORIOS-DE-BA-O-FOSET-2800.webp" alt="Juego Accesorios Dica 2800"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Juego Accesorios Cromado Premium</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 2800</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Juego completo · Cromado · 5 piezas</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Barra, aro, jabonera, vaso y portarrollo en acabado cromado.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,547.47 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ juego</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%202800" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16. Dica 4200TS -->
+      <div class="product-card fade-up" data-marca="dica" data-acabado="satinado" data-precio="580.60"
+           data-nombre="Juego de Accesorios de Baño Dica 4200TS"
+           data-specs="Cromo satinado · 5 piezas"
+           data-desc="Juego de accesorios para baño en acabado cromo satinado. Incluye barra, aro, jabonera, vaso y gancho. Acabado mate elegante."
+           data-img="https://i.ibb.co/PGnfjRvC/4200-TS-jpg.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%204200TS">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/PGnfjRvC/4200-TS-jpg.jpg" alt="Juego Accesorios Dica 4200TS"/>
+          <span class="card-badge badge-sale">Oferta</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Juego Accesorios Cromo Satinado</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 4200TS</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cromo satinado · 5 piezas</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Barra, aro, jabonera, vaso y gancho en acabado cromo satinado.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$580.60 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ juego</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Juego%20de%20Accesorios%20Dica%204200TS" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
             </a>
           </div>
         </div>
@@ -291,7 +678,7 @@
     <p class="cat-desc" id="desc-tinas">Tinas exentas y empotradas para transformar tu baño en un spa privado.</p>
     <div class="products-grid" id="grid-tinas">
 
-      <div class="product-card fade-up" data-marca="moen" data-material="acrilico" data-precio="8900">
+      <div class="product-card fade-up" data-marca="moen" data-acabado="" data-precio="8900">
         <div style="overflow:hidden;height:190px;position:relative;">
           <img src="https://picsum.photos/seed/24/600/400" alt="Tina Ovalada"/>
           <span class="card-badge badge-hot">Premium</span>
@@ -310,7 +697,7 @@
         </div>
       </div>
 
-      <div class="product-card fade-up" data-marca="urrea" data-material="acrilico" data-precio="5400">
+      <div class="product-card fade-up" data-marca="urrea" data-acabado="" data-precio="5400">
         <div style="overflow:hidden;height:190px;position:relative;">
           <img src="https://picsum.photos/seed/25/600/400" alt="Tina Rectangular"/>
           <span class="card-badge badge-sale">-15%</span>
@@ -339,7 +726,7 @@
     <p class="cat-desc" id="desc-inodoros">Sanitarios de doble descarga, eficiencia hídrica y diseño moderno.</p>
     <div class="products-grid" id="grid-inodoros">
 
-      <div class="product-card fade-up" data-marca="helvex" data-material="ceramica" data-precio="3200">
+      <div class="product-card fade-up" data-marca="helvex" data-acabado="" data-precio="3200">
         <div style="overflow:hidden;height:190px;position:relative;">
           <img src="https://picsum.photos/seed/26/600/400" alt="Inodoro"/>
           <span class="card-badge badge-hot">Top ventas</span>
@@ -358,7 +745,7 @@
         </div>
       </div>
 
-      <div class="product-card fade-up" data-marca="interceramic" data-material="porcelana" data-precio="4800">
+      <div class="product-card fade-up" data-marca="interceramic" data-acabado="" data-precio="4800">
         <div style="overflow:hidden;height:190px;position:relative;">
           <img src="https://picsum.photos/seed/27/600/400" alt="Inodoro One Piece"/>
           <span class="card-badge badge-new">Nuevo</span>
@@ -377,7 +764,7 @@
         </div>
       </div>
 
-      <div class="product-card fade-up" data-marca="dica" data-material="ceramica" data-precio="2800">
+      <div class="product-card fade-up" data-marca="dica" data-acabado="" data-precio="2800">
         <div style="overflow:hidden;height:190px;position:relative;">
           <img src="https://picsum.photos/seed/28/600/400" alt="Inodoro Suspendido"/>
         </div>
@@ -402,7 +789,7 @@
     <p class="cat-desc" id="desc-muebles">Tocadores, espejos y muebles para organizar y decorar tu baño.</p>
     <div class="products-grid" id="grid-muebles">
 
-      <div class="product-card fade-up" data-marca="interceramic" data-material="madera" data-precio="6500">
+      <div class="product-card fade-up" data-marca="interceramic" data-acabado="" data-precio="6500">
         <div style="overflow:hidden;height:190px;position:relative;">
           <img src="https://picsum.photos/seed/29/600/400" alt="Mueble Baño"/>
           <span class="card-badge badge-hot">Popular</span>
@@ -421,7 +808,7 @@
         </div>
       </div>
 
-      <div class="product-card fade-up" data-marca="dica" data-material="madera" data-precio="3900">
+      <div class="product-card fade-up" data-marca="dica" data-acabado="" data-precio="3900">
         <div style="overflow:hidden;height:190px;position:relative;">
           <img src="https://picsum.photos/seed/30/600/400" alt="Gabinete Baño"/>
           <span class="card-badge badge-sale">-10%</span>
@@ -445,6 +832,28 @@
 
     </div>
 
+  </div>
+</div>
+
+<!-- MODAL PRODUCTO -->
+<div id="modal-overlay" onclick="if(event.target===this)cerrarModal()">
+  <div id="modal-box">
+    <button id="modal-close" onclick="cerrarModal()">✕</button>
+    <div id="modal-img-wrap"><img id="modal-img" src="" alt=""/></div>
+    <div id="modal-content">
+      <p id="modal-marca"></p>
+      <h3 id="modal-nombre"></h3>
+      <span id="modal-ref"></span>
+      <div id="modal-specs"></div>
+      <p id="modal-desc"></p>
+      <div id="modal-footer">
+        <span id="modal-precio"></span>
+        <a id="modal-wa" href="#" target="_blank" class="btn-wa px-5 py-2.5 rounded-full text-sm">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir por WhatsApp
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -483,16 +892,16 @@
   const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
   document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
-  const grids=['lavabos','tinas','inodoros','muebles'];
+  const grids=['manerales','tinas','inodoros','muebles'];
 
   function applyFilters(){
     const marcas=[...document.querySelectorAll('input[id^="m-"]:checked')].map(i=>i.value);
-    const mats=[...document.querySelectorAll('input[id^="mat-"]:checked')].map(i=>i.value);
+    const acabados=[...document.querySelectorAll('input[id^="ac-"]:checked')].map(i=>i.value);
     const minP=parseFloat(document.getElementById('price-min').value)||0;
-        let total=0;
+    let total=0;
     document.querySelectorAll('.product-card').forEach(card=>{
       const ok=(marcas.length===0||marcas.includes(card.dataset.marca))&&
-               (mats.length===0||mats.includes(card.dataset.material))&&
+               (acabados.length===0||acabados.includes(card.dataset.acabado))&&
                parseFloat(card.dataset.precio)>=minP;
       card.style.display=ok?'':'none';
       if(ok)total++;
@@ -501,6 +910,7 @@
     document.getElementById('no-results').style.display=total===0?'block':'none';
     grids.forEach(g=>{
       const grid=document.getElementById('grid-'+g);
+      if(!grid)return;
       const vis=[...grid.querySelectorAll('.product-card')].some(c=>c.style.display!=='none');
       document.getElementById('div-'+g).style.display=vis?'':'none';
       document.getElementById('desc-'+g).style.display=vis?'':'none';
@@ -514,14 +924,17 @@
     document.getElementById('count').textContent=document.querySelectorAll('.product-card').length;
     document.getElementById('no-results').style.display='none';
     grids.forEach(g=>{
-      document.getElementById('div-'+g).style.display='';
-      document.getElementById('desc-'+g).style.display='';
+      const divEl=document.getElementById('div-'+g);
+      const descEl=document.getElementById('desc-'+g);
+      if(divEl)divEl.style.display='';
+      if(descEl)descEl.style.display='';
     });
   }
 
   function sortProducts(val){
     grids.forEach(g=>{
       const grid=document.getElementById('grid-'+g);
+      if(!grid)return;
       const cards=[...grid.querySelectorAll('.product-card')];
       cards.sort((a,b)=>{
         if(val==='price-asc') return parseFloat(a.dataset.precio)-parseFloat(b.dataset.precio);
@@ -532,6 +945,50 @@
       cards.forEach(c=>grid.appendChild(c));
     });
   }
+
+  // MODAL: abrir/cerrar
+  function abrirModalCard(card){
+    const nombre=card.dataset.nombre||'';
+    const marca=card.dataset.marca||'';
+    const specs=card.dataset.specs||'';
+    const desc=card.dataset.desc||'';
+    const img=card.dataset.img||'';
+    const wa=card.dataset.wa||'';
+    const precio=parseFloat(card.dataset.precio)||0;
+    const refMatch=nombre.match(/([A-Z0-9.\-\/]+)$/i);
+    const refText=refMatch?refMatch[1]:'';
+
+    document.getElementById('modal-img').src=img;
+    document.getElementById('modal-img').alt=nombre;
+    document.getElementById('modal-marca').textContent=marca.toUpperCase();
+    document.getElementById('modal-nombre').textContent=nombre;
+    document.getElementById('modal-ref').textContent='Ref: '+refText;
+    document.getElementById('modal-specs').textContent=specs;
+    document.getElementById('modal-desc').textContent=desc;
+
+    const precioEl=document.getElementById('modal-precio');
+    if(precio===0){
+      precioEl.textContent='Precio: Cotizar';
+      precioEl.classList.add('cotizar');
+    } else {
+      precioEl.textContent='$'+precio.toLocaleString('es-MX',{minimumFractionDigits:precio%1?2:0,maximumFractionDigits:2});
+      precioEl.classList.remove('cotizar');
+    }
+
+    document.getElementById('modal-wa').href='https://wa.me/5217411306781?text='+wa;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+
+  function cerrarModal(){
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow='';
+  }
+
+  // Cerrar modal con tecla ESC
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape')cerrarModal();
+  });
 
   document.getElementById('count').textContent=document.querySelectorAll('.product-card').length;
 </script>
