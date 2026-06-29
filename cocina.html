@@ -92,6 +92,20 @@
     .fade-up.visible { opacity:1; transform:translateY(0); }
 
     @media(max-width:640px){ .nav-inner{padding:0.75rem 1.25rem;} .pnav-inner{padding:0 1rem;} #top-bar{padding:0.4rem 1rem;} .cat-hero{padding:2rem 1.25rem;} .page-layout{padding:1.5rem 1.25rem;} }
+
+    /* MODAL */
+    #modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:500; align-items:center; justify-content:center; padding:1rem; }
+    #modal-overlay.open { display:flex; }
+    #modal-box { background:#fff; border-radius:16px; max-width:480px; width:100%; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.25); }
+    #modal-img { width:100%; height:220px; object-fit:cover; }
+    #modal-body { padding:1.5rem; }
+    #modal-nombre { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; color:var(--charcoal); line-height:1.3; }
+    #modal-specs { font-size:0.78rem; color:var(--red); font-weight:600; margin-bottom:0.75rem; }
+    #modal-desc { font-size:0.85rem; color:#6b7280; line-height:1.6; margin-bottom:1.25rem; }
+    #modal-footer { display:flex; gap:0.75rem; }
+    #modal-wa { flex:1; }
+    #modal-cerrar { background:#f3f4f6; color:#374151; border:none; border-radius:8px; padding:0.6rem 1rem; font-size:0.82rem; font-weight:600; cursor:pointer; transition:background 0.2s; }
+    #modal-cerrar:hover { background:#e5e7eb; }
   </style>
 </head>
 <body>
@@ -167,11 +181,9 @@
   <aside id="sidebar">
     <div class="filter-box">
       <div class="filter-title"><span class="material-symbols-outlined">sell</span>Marca</div>
-      <div class="filter-option"><input type="checkbox" id="m-helvex" value="helvex" onchange="applyFilters()"><label for="m-helvex">Helvex</label></div>
-      <div class="filter-option"><input type="checkbox" id="m-moen" value="moen" onchange="applyFilters()"><label for="m-moen">Moen</label></div>
-      <div class="filter-option"><input type="checkbox" id="m-urrea" value="urrea" onchange="applyFilters()"><label for="m-urrea">Urrea</label></div>
-      <div class="filter-option"><input type="checkbox" id="m-teka" value="teka" onchange="applyFilters()"><label for="m-teka">Teka</label></div>
+      <div class="filter-option"><input type="checkbox" id="m-foset" value="foset" onchange="applyFilters()"><label for="m-foset">Foset</label></div>
       <div class="filter-option"><input type="checkbox" id="m-dica" value="dica" onchange="applyFilters()"><label for="m-dica">Dica</label></div>
+      <div class="filter-option"><input type="checkbox" id="m-anbec" value="anbec" onchange="applyFilters()"><label for="m-anbec">Anbec</label></div>
     </div>
 
     <div class="filter-box">
@@ -335,6 +347,317 @@
 
     </div>
 
+    <!-- GRIFERÍA DE COCINA -->
+    <div class="cat-div" id="div-grifcocina"><span>Grifería de Cocina</span></div>
+    <p class="cat-desc" id="desc-grifcocina">Monomandos y mezcladoras para fregadero con acabados cromado, negro mate y satinado.</p>
+    <div class="products-grid" id="grid-grifcocina">
+
+      <div class="product-card fade-up" data-marca="foset" data-cat="grifcocina" data-acabado="negro" data-precio="1525"
+           data-nombre="Foset 44216 (KUF-83M) — Monomando para fregadero"
+           data-specs="Cuello alto · Negro mate · Para fregadero"
+           data-desc="Monomando cuello alto negro mate."
+           data-img="https://i.ibb.co/ycxMLHM3/Whats-App-Image-2026-06-25-at-1-51-49-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Foset%2044216%20%28KUF-83M%29">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/ycxMLHM3/Whats-App-Image-2026-06-25-at-1-51-49-PM.jpg" alt="Monomando para fregadero Foset 44216 (KUF-83M)"/>
+          <span class="card-badge badge-hot">Top ventas</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Monomando para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 44216 (KUF-83M)</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cuello alto · Negro mate · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Monomando cuello alto negro mate.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,525 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Foset%2044216%20%28KUF-83M%29" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="foset" data-cat="grifcocina" data-acabado="cromo" data-precio="1050"
+           data-nombre="Foset 46765 (TBF-83) — Monomando para fregadero"
+           data-specs="Cromado · Para fregadero"
+           data-desc="Monomando cromado para fregadero."
+           data-img="https://i.ibb.co/wZVG45Qw/Whats-App-Image-2026-06-25-at-1-51-12-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Foset%2046765%20%28TBF-83%29">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/wZVG45Qw/Whats-App-Image-2026-06-25-at-1-51-12-PM.jpg" alt="Monomando para fregadero Foset 46765 (TBF-83)"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Monomando para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 46765 (TBF-83)</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cromado · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Monomando cromado para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,050 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Foset%2046765%20%28TBF-83%29" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="dica" data-cat="grifcocina" data-acabado="cromo" data-precio="0"
+           data-nombre="Dica 4009 — Monomando para fregadero"
+           data-specs="Cromado · Para fregadero"
+           data-desc="Monomando cromado para fregadero."
+           data-img="https://i.ibb.co/tM95VVPT/Whats-App-Image-2026-06-25-at-1-50-50-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Dica%204009">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/tM95VVPT/Whats-App-Image-2026-06-25-at-1-50-50-PM.jpg" alt="Monomando para fregadero Dica 4009"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Monomando para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 4009</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cromado · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Monomando cromado para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:0.78rem;color:#6b7280;font-style:italic;">Precio: Cotizar</span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Dica%204009" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="dica" data-cat="grifcocina" data-acabado="cromo" data-precio="1691"
+           data-nombre="Dica 4087 — Monomando para fregadero"
+           data-specs="Diseño cuadrado · Para fregadero"
+           data-desc="Monomando de diseño cuadrado para fregadero."
+           data-img="https://i.ibb.co/Fbys02rq/Whats-App-Image-2026-06-25-at-1-50-12-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Dica%204087">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/Fbys02rq/Whats-App-Image-2026-06-25-at-1-50-12-PM.jpg" alt="Monomando para fregadero Dica 4087"/>
+          <span class="card-badge badge-new">Nuevo</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Monomando para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 4087</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Diseño cuadrado · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Monomando de diseño cuadrado para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,691.29 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Dica%204087" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="dica" data-cat="grifcocina" data-acabado="cromo" data-precio="681"
+           data-nombre="Dica 4333TS — Mezcladora 8" para fregadero"
+           data-specs="Mezcladora 8 pulgadas · Para fregadero"
+           data-desc="Mezcladora de 8 pulgadas para fregadero."
+           data-img="https://i.ibb.co/99qHGNh5/Whats-App-Image-2026-06-25-at-1-46-29-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%208%22%20para%20fregadero%20Dica%204333TS">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/99qHGNh5/Whats-App-Image-2026-06-25-at-1-46-29-PM.jpg" alt="Mezcladora 8" para fregadero Dica 4333TS"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Mezcladora 8" para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 4333TS</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Mezcladora 8 pulgadas · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora de 8 pulgadas para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$681.27 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%208%22%20para%20fregadero%20Dica%204333TS" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="foset" data-cat="grifcocina" data-acabado="cromo" data-precio="655"
+           data-nombre="Foset 45617 (F-320A) — Mezcladora para fregadero"
+           data-specs="Línea Basic · Para fregadero"
+           data-desc="Mezcladora línea Basic para fregadero."
+           data-img="https://i.ibb.co/DPSSJqT0/Whats-App-Image-2026-06-25-at-1-47-38-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2045617%20%28F-320A%29">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/DPSSJqT0/Whats-App-Image-2026-06-25-at-1-47-38-PM.jpg" alt="Mezcladora para fregadero Foset 45617 (F-320A)"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Mezcladora para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 45617 (F-320A)</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Línea Basic · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora línea Basic para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$655 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2045617%20%28F-320A%29" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="dica" data-cat="grifcocina" data-acabado="negro" data-precio="763"
+           data-nombre="Dica 4362.2 — Mezcladora para fregadero"
+           data-specs="Negro mate · Para fregadero"
+           data-desc="Mezcladora negro mate para fregadero."
+           data-img="https://i.ibb.co/SwdXsVtg/Whats-App-Image-2026-06-25-at-1-46-57-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Dica%204362.2">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/SwdXsVtg/Whats-App-Image-2026-06-25-at-1-46-57-PM.jpg" alt="Mezcladora para fregadero Dica 4362.2"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Dica</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Mezcladora para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 4362.2</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Negro mate · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora negro mate para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$763.79 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Dica%204362.2" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="anbec" data-cat="grifcocina" data-acabado="cromo" data-precio="589"
+           data-nombre="Anbec MEZF8204 — Mezcladora para fregadero"
+           data-specs="Cromada · Para fregadero"
+           data-desc="Mezcladora cromada para fregadero."
+           data-img="https://i.ibb.co/q3ypkv3b/Whats-App-Image-2026-06-25-at-1-49-52-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Anbec%20MEZF8204">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/q3ypkv3b/Whats-App-Image-2026-06-25-at-1-49-52-PM.jpg" alt="Mezcladora para fregadero Anbec MEZF8204"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Anbec</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Mezcladora para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: MEZF8204</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cromada · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora cromada para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$589 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Anbec%20MEZF8204" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="foset" data-cat="grifcocina" data-acabado="cromo" data-precio="655"
+           data-nombre="Foset 46774 (TBF-81) — Mezcladora para fregadero"
+           data-specs="Cromada · Para fregadero"
+           data-desc="Mezcladora cromada para fregadero."
+           data-img="https://i.ibb.co/FLd1dZW6/Whats-App-Image-2026-06-25-at-1-45-27-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2046774%20%28TBF-81%29">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/FLd1dZW6/Whats-App-Image-2026-06-25-at-1-45-27-PM.jpg" alt="Mezcladora para fregadero Foset 46774 (TBF-81)"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Mezcladora para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 46774 (TBF-81)</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Cromada · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora cromada para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$655 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2046774%20%28TBF-81%29" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="foset" data-cat="grifcocina" data-acabado="satin" data-precio="765"
+           data-nombre="Foset 45624 (AQF-82N) — Mezcladora para fregadero"
+           data-specs="Satinada · Para fregadero"
+           data-desc="Mezcladora satinada para fregadero."
+           data-img="https://i.ibb.co/q3mN0HTK/Whats-App-Image-2026-06-25-at-1-44-37-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2045624%20%28AQF-82N%29">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/q3mN0HTK/Whats-App-Image-2026-06-25-at-1-44-37-PM.jpg" alt="Mezcladora para fregadero Foset 45624 (AQF-82N)"/>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Mezcladora para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 45624 (AQF-82N)</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Satinada · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora satinada para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$765 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2045624%20%28AQF-82N%29" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="foset" data-cat="grifcocina" data-acabado="cromo" data-precio="299"
+           data-nombre="Foset 45516 (FP-319P) — Mezcladora para fregadero"
+           data-specs="Línea Basic · Para fregadero"
+           data-desc="Mezcladora línea Basic para fregadero."
+           data-img="https://i.ibb.co/fzXF7kXX/Whats-App-Image-2026-06-25-at-1-43-54-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2045516%20%28FP-319P%29">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/fzXF7kXX/Whats-App-Image-2026-06-25-at-1-43-54-PM.jpg" alt="Mezcladora para fregadero Foset 45516 (FP-319P)"/>
+          <span class="card-badge badge-sale">Oferta</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Mezcladora para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 45516 (FP-319P)</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Línea Basic · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Mezcladora línea Basic para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$299 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Mezcladora%20para%20fregadero%20Foset%2045516%20%28FP-319P%29" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-marca="foset" data-cat="grifcocina" data-acabado="cromo" data-precio="1950"
+           data-nombre="Foset 44227 (KUF-82M) — Monomando para fregadero"
+           data-specs="Extraíble · Para fregadero"
+           data-desc="Monomando extraíble para fregadero."
+           data-img="https://i.ibb.co/fVDxk7R5/Whats-App-Image-2026-06-25-at-1-48-50-PM.jpg"
+           data-wa="Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Foset%2044227%20%28KUF-82M%29">
+        <div style="overflow:hidden;height:190px;position:relative;">
+          <img src="https://i.ibb.co/fVDxk7R5/Whats-App-Image-2026-06-25-at-1-48-50-PM.jpg" alt="Monomando para fregadero Foset 44227 (KUF-82M)"/>
+          <span class="card-badge badge-hot">Top ventas</span>
+        </div>
+        <div style="padding:1rem;">
+          <p style="font-size:0.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Foset</p>
+          <h4 style="font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;line-height:1.3;">Monomando para fregadero</h4>
+          <p style="font-size:0.7rem;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:0.1rem 0.5rem;border-radius:4px;margin-bottom:0.35rem;letter-spacing:0.05em;">Ref: 44227 (KUF-82M)</p>
+          <p style="font-size:0.75rem;color:#6b7280;margin-bottom:0.4rem;">Extraíble · Para fregadero</p>
+          <p style="font-size:0.73rem;color:#9ca3af;margin-bottom:0.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">Monomando extraíble para fregadero.</p>
+          <button onclick="abrirModalCard(this.closest('.product-card'))" style="font-size:0.72rem;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-bottom:0.6rem;text-decoration:underline;">Ver más info ↓</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--red);font-weight:700;font-size:1rem;">$1,950 <span style="font-size:0.72rem;color:#6b7280;font-weight:400;">/ pza</span></span>
+            <a href="https://wa.me/5217411306781?text=Hola%20MAYESA%2C%20me%20interesa%20el%20Monomando%20para%20fregadero%20Foset%2044227%20%28KUF-82M%29" target="_blank" class="btn-wa px-3 py-1.5 rounded-full text-xs">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- CAMPANAS -->
     <div class="cat-div" id="div-campana"><span>Campanas Extractoras</span></div>
     <p class="cat-desc" id="desc-campana">Extractoras de humo y olores para una cocina limpia y fresca.</p>
@@ -452,6 +775,25 @@
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
+<!-- MODAL VER MÁS -->
+<div id="modal-overlay" onclick="if(event.target===this)cerrarModal()">
+  <div id="modal-box">
+    <img id="modal-img" src="" alt=""/>
+    <div id="modal-body">
+      <p id="modal-nombre"></p>
+      <p id="modal-specs"></p>
+      <p id="modal-desc"></p>
+      <div id="modal-footer">
+        <a id="modal-wa" href="" target="_blank" class="btn-wa px-4 py-2.5 rounded-full text-sm" style="justify-content:center;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir por WhatsApp
+        </a>
+        <button id="modal-cerrar" onclick="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mob-menu').classList.add('open'));
   document.getElementById('close-mob').addEventListener('click',()=>document.getElementById('mob-menu').classList.remove('open'));
@@ -460,7 +802,24 @@
   const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
   document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
-  const grids=['tarja','mezcladora','campana','accesorio'];
+  function abrirModalCard(card){
+    const d=card.dataset;
+    document.getElementById('modal-nombre').textContent=d.nombre;
+    document.getElementById('modal-specs').textContent=d.specs;
+    document.getElementById('modal-desc').textContent=d.desc;
+    document.getElementById('modal-img').src=d.img;
+    document.getElementById('modal-img').alt=d.nombre;
+    document.getElementById('modal-wa').href='https://wa.me/5217411306781?text='+d.wa;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function cerrarModal(){
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') cerrarModal(); });
+
+  const grids=['tarja','mezcladora','grifcocina','campana','accesorio'];
 
   function applyFilters(){
     const marcas=[...document.querySelectorAll('input[id^="m-"]:checked')].map(i=>i.value);
